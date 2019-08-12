@@ -36,5 +36,6 @@ TSharedRef<FSlateStyleSet> SlAiStyle::Create()
 {
 	//TSharedRef<FSlateStyleSet>StyleRef = MakeShareable(new FSlateStyleSet(GetStyleSetName()));
 	TSharedRef <FSlateStyleSet>StyleRef = FSlateGameResources::New(GetStyleSetName(),"/Game/UI/HUD", "/Game/UI/HUD");
+	StyleRef->Set("MenuItemFont",FSlateFontInfo("Roboto-Regular.ttf",50));
 	return StyleRef;
 }

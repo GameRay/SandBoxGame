@@ -3,9 +3,7 @@
 #include "SandBoxGame.h"
 #include "Modules/ModuleManager.h"
 #include "SlateStyleRegistry.h"
-#include"SlAiStyle.h"
-
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, SandBoxGame, "SandBoxGame" );
+#include "SlAiStyle.h"
 
 void SandBoxGameModule::StartupModule()
 {
@@ -16,3 +14,5 @@ void SandBoxGameModule::ShutdownModule()
 {
 	SlAiStyle::ShutDown();
 }
+IMPLEMENT_PRIMARY_GAME_MODULE(SandBoxGameModule, SandBoxGame, "SandBoxGame");
+
