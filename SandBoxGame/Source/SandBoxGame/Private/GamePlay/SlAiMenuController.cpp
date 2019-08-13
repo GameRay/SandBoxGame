@@ -10,6 +10,6 @@ ASlAiMenuController::ASlAiMenuController()
 void ASlAiMenuController::BeginPlay()
 {
 	FInputModeUIOnly InputMode;
-	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockOnCapture);
+	InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	SetInputMode(InputMode);
 }

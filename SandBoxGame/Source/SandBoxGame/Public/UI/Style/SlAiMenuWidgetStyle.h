@@ -25,7 +25,10 @@ struct SANDBOXGAME_API FSlAiMenuStyle : public FSlateWidgetStyle
 	virtual const FName GetTypeName() const override { return TypeName; };
 	static const FSlAiMenuStyle& GetDefault();
 	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush MenuHUDBackgroundBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
 	FSlateBrush MenuBackgroundBrush;
+
 };
 
 /**

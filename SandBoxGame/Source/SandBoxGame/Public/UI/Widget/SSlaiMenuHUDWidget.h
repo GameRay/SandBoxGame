@@ -18,5 +18,9 @@ public:
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 private:
+	float GetUIScaler() const;
+	FVector2D GetViewportSize()const;
+private:
 	const struct FSlAiMenuStyle* MenuStyle;
+	TAttribute<float>UIScaler;
 };
