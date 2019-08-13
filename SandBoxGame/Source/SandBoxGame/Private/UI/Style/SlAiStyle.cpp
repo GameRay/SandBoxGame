@@ -33,9 +33,13 @@ const ISlateStyle & SlAiStyle::Get()
 }
 
 TSharedRef<FSlateStyleSet> SlAiStyle::Create()
-{
-	//TSharedRef<FSlateStyleSet>StyleRef = MakeShareable(new FSlateStyleSet(GetStyleSetName()));
-	TSharedRef <FSlateStyleSet>StyleRef = FSlateGameResources::New(GetStyleSetName(),"/Game/UI/HUD", "/Game/UI/HUD");
+{	//FSlateGameResources的方式
+	TSharedRef <FSlateStyleSet>StyleRef = FSlateGameResources::New(GetStyleSetName(),"/Game/UI/Style", "/Game/UI/Style");
 	StyleRef->Set("MenuItemFont",FSlateFontInfo("Roboto-Regular.ttf",50));
+
+	//FSlateGameResources的方式
+	//TSharedRef<FSlateStyleSet>StyleRef = MakeShareable(new FSlateGameResources(GetStyleSetName()));
+	//StyleRef->SetContentRoot(TEXT("/Game/Res/UI/MenuIcon/"));
+	//StyleRef->Set("JLBPS", new FSlateImageBrush(TEXT("BGImage.png"),FVector2D(1280,720)));
 	return StyleRef;
 }
