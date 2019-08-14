@@ -28,7 +28,12 @@ struct SANDBOXGAME_API FSlAiMenuStyle : public FSlateWidgetStyle
 	FSlateBrush MenuHUDBackgroundBrush;
 	UPROPERTY(EditAnywhere, Category = "Menu")
 	FSlateBrush MenuBackgroundBrush;
-
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush LeftIconBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush RightIconBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush TitleBorderBrush;
 };
 
 /**

@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
-
+#include"SBox.h"
+#include"SlAiMenuWidgetStyle.h"
+#include"STextBlock.h"
 /**
  * 
  */
@@ -17,4 +19,8 @@ public:
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
+private:
+	const struct FSlAiMenuStyle*MenuStyle;
+	TSharedPtr<SBox>RootSizeBox;
+	TSharedPtr<STextBlock>TitleText;
 };
