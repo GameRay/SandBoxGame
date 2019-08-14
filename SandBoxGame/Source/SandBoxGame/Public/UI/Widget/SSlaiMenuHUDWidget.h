@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
-
+#include"SOverlay.h"
+#include"Reply.h"
+#include"SSlAiMenuWidget.h"
 /**
  * 
  */
@@ -20,7 +22,12 @@ public:
 private:
 	float GetUIScaler() const;
 	FVector2D GetViewportSize()const;
+	//FReply OnClick();
 private:
+	
 	const struct FSlAiMenuStyle* MenuStyle;
 	TAttribute<float>UIScaler;
+
+	TSharedPtr<SSlAiMenuWidget> MenuWidget;
+	//SOverlay::FOverlaySlot* ImageSlot;
 };
