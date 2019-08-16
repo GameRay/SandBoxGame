@@ -11,7 +11,6 @@
 #include"Engine.h"
 #include"SDPIScaler.h"
 //#include"Internationalization.h"
-#define LOCTEXT_NAMESPACE "SSlaiMenuHUDWidget"
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSlaiMenuHUDWidget::Construct(const FArguments& InArgs)
 {
@@ -84,4 +83,3 @@ FVector2D SSlaiMenuHUDWidget::GetViewportSize()const
 //	ImageSlot->HAlign(HAlign_Right).VAlign(VAlign_Bottom);
 //	return FReply::Handled();
 //}
-#undef LOCTEXT_NAMESPACE

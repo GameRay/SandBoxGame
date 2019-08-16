@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "SSlAiMenuWidget.h"
@@ -8,6 +8,7 @@
 #include"SOverlay.h"
 #include"SImage.h"
 #include"SBorder.h"
+#include"Internationalization.h"
 
 #define LOCTEXT_NAMESPACE "SSlAiMenuWidget"
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
@@ -15,6 +16,7 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 {
 	MenuStyle = &SlAiStyle::Get().GetWidgetStyle<FSlAiMenuStyle>("BPSlAiMenuStyle");
 	
+	FInternationalization::Get().SetCurrentCulture(TEXT("en"));
 	ChildSlot
 	[
 		SAssignNew(RootSizeBox,SBox).HAlign(HAlign_Center).VAlign(VAlign_Center)
@@ -69,8 +71,8 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 						[
 							SAssignNew(TitleText,STextBlock)
 							.Font(SlAiStyle::Get().GetFontStyle("MenuItemFont"))
-							//.Text(FText(LOCTEXT("title","ÌâÄ¿")))
-							.Text(FText::FromString(TEXT("ÌâÄ¿")))
+							.Text(NSLOCTEXT("SlAiMenu", "Menu", "Menu"))
+							//.Text(FText::FromString(TEXT("é¢˜ç›®")))
 						]
 
 						
