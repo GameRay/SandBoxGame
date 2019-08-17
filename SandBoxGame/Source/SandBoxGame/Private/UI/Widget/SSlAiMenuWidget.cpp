@@ -16,7 +16,7 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 {
 	MenuStyle = &SlAiStyle::Get().GetWidgetStyle<FSlAiMenuStyle>("BPSlAiMenuStyle");
 	
-	FInternationalization::Get().SetCurrentCulture(TEXT("en"));
+	FInternationalization::Get().SetCurrentCulture(TEXT("zh"));
 	ChildSlot
 	[
 		SAssignNew(RootSizeBox,SBox).HAlign(HAlign_Center).VAlign(VAlign_Center)
