@@ -23,19 +23,20 @@ TSharedPtr<SlAiDaTaHandle> SlAiDaTaHandle::Get()
 	return DataInstance;
 }
 
-void SlAiDaTaHandle::ChangeLocalizationCulture(ECultureTrem Culture)
+void SlAiDaTaHandle::ChangeLocalizationCulture(ECultureTeam Culture)
 {
 	switch (Culture)
 	{
-	case ECultureTrem::EN:
+	case ECultureTeam::EN:
 		FInternationalization::Get().SetCurrentCulture("en");
 		break;
-	case ECultureTrem::ZH:
+	case ECultureTeam::ZH:
 		FInternationalization::Get().SetCurrentCulture("zh");
 		break;
 	default:
 		break;
 	}
+	CurrentCulture = Culture;
 }
 
 TSharedRef<SlAiDaTaHandle> SlAiDaTaHandle::Create()

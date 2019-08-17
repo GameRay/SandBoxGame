@@ -9,8 +9,28 @@
  * 
  */
 UENUM(BlueprintType)
-enum class ECultureTrem:uint8
+enum class ECultureTeam:uint8
 {
 	EN = 0,
 	ZH = 1,
 };
+namespace EMenuItem
+{
+	enum Type
+	{
+		NONE,
+		StartGame,
+		GameOption,
+		QuitGame,
+		NewGame,
+		LoadRecord,
+		StartGameGoBack,
+		GameOptionGoBack,
+		NewGameGoBack,
+		ChooseRecordGoBack,
+		EnterGame,
+		EnterRecord
+
+
+	};
+}

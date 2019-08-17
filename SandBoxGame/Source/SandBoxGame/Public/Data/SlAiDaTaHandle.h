@@ -14,8 +14,8 @@ public:
 	SlAiDaTaHandle();
 	static void Initialize();
 	static TSharedPtr<SlAiDaTaHandle> Get();
-	ECultureTrem CurrentCulture;
-	void ChangeLocalizationCulture(ECultureTrem Culture);
+	ECultureTeam CurrentCulture;
+	void ChangeLocalizationCulture(ECultureTeam Culture);
 private:
 	static TSharedRef<SlAiDaTaHandle> Create();
 private:

@@ -2,11 +2,3 @@
 
 
 #include "SlAiTypes.h"
-
-SlAiTypes::SlAiTypes()
-{
-}
-
-SlAiTypes::~SlAiTypes()
-{
-}
