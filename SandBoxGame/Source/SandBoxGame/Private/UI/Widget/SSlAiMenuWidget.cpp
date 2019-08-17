@@ -9,6 +9,8 @@
 #include"SImage.h"
 #include"SBorder.h"
 #include"Internationalization.h"
+#include"SSlAiMenuItemWidget.h"
+#include"SlAiTypes.h"
 
 #define LOCTEXT_NAMESPACE "SSlAiMenuWidget"
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
@@ -78,8 +80,23 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 						
 					]
 				]
-		]
-	];
+			+SOverlay::Slot()
+				.HAlign(HAlign_Center)
+				.VAlign(VAlign_Top)
+				.Padding(FMargin(0.f,130.f,0.f,0.f))
+				[
+					SAssignNew(ContentBox,SVerticalBox)
+				]
+			]
+		
+		];
+	ContentBox->AddSlot()
+		[
+			SNew(SSlAiMenuItemWidget)
+			.ItemText(NSLOCTEXT("SlAiMenu", "StartGame", "StartGame"))
+			.ItemText(EMenuItem::StartGame)
+			
+		];
 	
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

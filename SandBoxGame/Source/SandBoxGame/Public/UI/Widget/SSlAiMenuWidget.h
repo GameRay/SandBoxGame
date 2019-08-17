@@ -7,7 +7,8 @@
 #include"SBox.h"
 #include"SlAiMenuWidgetStyle.h"
 #include"STextBlock.h"
-/**
+#include"VerticalBox.h"
+/*
  * 
  */
 class SANDBOXGAME_API SSlAiMenuWidget : public SCompoundWidget
@@ -23,4 +24,5 @@ private:
 	const struct FSlAiMenuStyle*MenuStyle;
 	TSharedPtr<SBox>RootSizeBox;
 	TSharedPtr<STextBlock>TitleText;
+	TSharedPtr<SVerticalBox>ContentBox;
 };
