@@ -8,6 +8,7 @@
 #include"SlAiMenuWidgetStyle.h"
 #include"STextBlock.h"
 #include"VerticalBox.h"
+#include"SSlAiMenuItemWidget.h"
 /*
  * 
  */
@@ -21,8 +22,11 @@ public:
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 private:
+	void MenuItemOnClicked(EMenuItem::Type);
+private:
 	const struct FSlAiMenuStyle*MenuStyle;
 	TSharedPtr<SBox>RootSizeBox;
 	TSharedPtr<STextBlock>TitleText;
 	TSharedPtr<SVerticalBox>ContentBox;
+
 };

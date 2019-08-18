@@ -94,10 +94,16 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 		[
 			SNew(SSlAiMenuItemWidget)
 			.ItemText(NSLOCTEXT("SlAiMenu", "StartGame", "StartGame"))
-			.ItemText(EMenuItem::StartGame)
+			.ItemType(EMenuItem::StartGame)
+		.OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked)
 			
 		];
 	
+}
+
+void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type)
+{
+
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE

@@ -6,7 +6,9 @@
 #include "Styling/SlateWidgetStyle.h"
 #include "SlateWidgetStyleContainerBase.h"
 #include "SlateBrush.h"
+#include"SlateFontInfo.h"
 #include "SlAiMenuWidgetStyle.generated.h"
+
 
 /**
  * 
@@ -34,6 +36,16 @@ struct SANDBOXGAME_API FSlAiMenuStyle : public FSlateWidgetStyle
 	FSlateBrush RightIconBrush;
 	UPROPERTY(EditAnywhere, Category = "Menu")
 	FSlateBrush TitleBorderBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush MenuItemBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateFontInfo Font_60;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateFontInfo Font_40;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateFontInfo Font_30;
+
+
 };
 
 /**
