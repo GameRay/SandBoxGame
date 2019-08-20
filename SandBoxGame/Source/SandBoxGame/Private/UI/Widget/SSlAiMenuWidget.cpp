@@ -11,6 +11,8 @@
 #include"Internationalization.h"
 #include"SSlAiMenuItemWidget.h"
 #include"SlAiTypes.h"
+#include"Common/SlAiHelper.h"
+#include"UI/Widget/SSlAiGameOptionWidget.h"
 
 #define LOCTEXT_NAMESPACE "SSlAiMenuWidget"
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
@@ -92,10 +94,11 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 		];
 	ContentBox->AddSlot()
 		[
-			SNew(SSlAiMenuItemWidget)
+			/*SNew(SSlAiMenuItemWidget)
 			.ItemText(NSLOCTEXT("SlAiMenu", "StartGame", "StartGame"))
 			.ItemType(EMenuItem::StartGame)
-		.OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked)
+		.OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked)*/
+			SNew(SSlAiGameOptionWidget)
 			
 		];
 	
@@ -103,7 +106,7 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 
 void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type)
 {
-
+	TitleText->SetText(NSLOCTEXT("SlAiMenu","StartGame","StartGame"));
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE

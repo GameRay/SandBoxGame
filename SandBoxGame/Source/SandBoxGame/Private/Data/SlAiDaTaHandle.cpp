@@ -6,7 +6,7 @@
 TSharedPtr<SlAiDaTaHandle> SlAiDaTaHandle::DataInstance = NULL;
 SlAiDaTaHandle::SlAiDaTaHandle()
 {
-
+	CurrentCulture = ECultureTeam::ZH;
 }
 
 void SlAiDaTaHandle::Initialize()

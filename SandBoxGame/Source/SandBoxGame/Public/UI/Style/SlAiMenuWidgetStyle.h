@@ -44,6 +44,17 @@ struct SANDBOXGAME_API FSlAiMenuStyle : public FSlateWidgetStyle
 	FSlateFontInfo Font_40;
 	UPROPERTY(EditAnywhere, Category = "Menu")
 	FSlateFontInfo Font_30;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush GameOptionBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FLinearColor FontColor_White;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FLinearColor FontColor_Black;
+
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush CheckedBoxBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush UnCheckedBoxBrush;
 
 
 };
