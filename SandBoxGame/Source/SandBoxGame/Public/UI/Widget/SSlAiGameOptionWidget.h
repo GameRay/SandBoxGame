@@ -6,6 +6,7 @@
 #include "Widgets/SCompoundWidget.h"
 #include"Public/Widgets/Input/SCheckBox.h"
 #include"UI/Style/SlAiMenuWidgetStyle.h"
+#include"SSlider.h"
 
 /**
  * 
@@ -23,8 +24,14 @@ private:
 	void StyleInitialize();
 	void ZhCheckBoxStateChanged(ECheckBoxState NewState);
 	void EnCheckBoxStateChanged(ECheckBoxState NewState);
+	void MusicSliderChanged(float Value);
+	void SoundSliderChanged(float Value);
 private:
 	const struct FSlAiMenuStyle*MenuStyle;
 	TSharedPtr<SCheckBox>ZhCheckBox;
 	TSharedPtr<SCheckBox>EnCheckBox;
+	TSharedPtr<SSlider>MuSlider;
+	TSharedPtr<SSlider>SoSlider;
+	TSharedPtr<STextBlock>MuTextBlock;
+	TSharedPtr<STextBlock>SoTextBlock;
 };

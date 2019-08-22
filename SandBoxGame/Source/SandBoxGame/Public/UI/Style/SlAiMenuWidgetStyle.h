@@ -7,7 +7,9 @@
 #include "SlateWidgetStyleContainerBase.h"
 #include "SlateBrush.h"
 #include"SlateFontInfo.h"
+#include"Styling/SlateStyle.h"
 #include "SlAiMenuWidgetStyle.generated.h"
+
 
 
 /**
@@ -55,6 +57,11 @@ struct SANDBOXGAME_API FSlAiMenuStyle : public FSlateWidgetStyle
 	FSlateBrush CheckedBoxBrush;
 	UPROPERTY(EditAnywhere, Category = "Menu")
 	FSlateBrush UnCheckedBoxBrush;
+
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSlateBrush SliderBarBrush;
+	UPROPERTY(EditAnywhere, Category = "Menu")
+	FSliderStyle SliderStyle;
 
 
 };

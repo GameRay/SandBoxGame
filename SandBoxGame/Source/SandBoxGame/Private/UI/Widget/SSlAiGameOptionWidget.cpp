@@ -9,6 +9,7 @@
 #include"SBoxPanel.h"
 #include"Common/SlAiHelper.h"
 #include"SlAiDaTaHandle.h"
+#include"SSlider.h"
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSlAiGameOptionWidget::Construct(const FArguments& InArgs)
 {
@@ -77,8 +78,52 @@ void SSlAiGameOptionWidget::Construct(const FArguments& InArgs)
 				.VAlign(VAlign_Fill)
 				.FillHeight(1.f)
 				[
+				
 					SNew(SOverlay)
 					+ SOverlay::Slot()
+					.HAlign(HAlign_Left)
+					.VAlign(VAlign_Center)
+					[
+						SNew(STextBlock)
+						.Font(MenuStyle->Font_40)
+						.Text(NSLOCTEXT("SlAiMenu", "Music", "Music"))
+
+					]
+					+ SOverlay::Slot()
+					.HAlign(HAlign_Center)
+					.VAlign(VAlign_Center)
+					[
+						SNew(SOverlay)
+						+ SOverlay::Slot()
+						.HAlign(HAlign_Fill)
+						.VAlign(VAlign_Center)
+						.Padding(FMargin(30.f,0.f))
+						[
+							SNew(SImage)
+							.Image(&MenuStyle->SliderBarBrush)
+						]
+						+ SOverlay::Slot()
+						.HAlign(HAlign_Fill)
+						.VAlign(VAlign_Center)
+						[
+							SAssignNew(MuSlider,SSlider)
+							.Style(&MenuStyle->SliderStyle)
+							.OnValueChanged(this,&SSlAiGameOptionWidget::MusicSliderChanged)
+
+						]
+
+					]
+					+ SOverlay::Slot()
+					.HAlign(HAlign_Right)
+					.VAlign(VAlign_Center)
+					[
+						SAssignNew(MuTextBlock,STextBlock)
+						.Font(MenuStyle->Font_40)
+						//.Text(FText::FromString("50%"))
+					]
+
+
+
 				]
 				+ SVerticalBox::Slot()
 				.HAlign(HAlign_Fill)
@@ -87,6 +132,47 @@ void SSlAiGameOptionWidget::Construct(const FArguments& InArgs)
 				[
 					SNew(SOverlay)
 					+ SOverlay::Slot()
+					.HAlign(HAlign_Left)
+					.VAlign(VAlign_Center)
+					[
+						SNew(STextBlock)
+						.Font(MenuStyle->Font_40)
+						.Text(NSLOCTEXT("SlAiMenu", "Sound", "Sound"))
+
+					]
+					+ SOverlay::Slot()
+					.HAlign(HAlign_Center)
+					.VAlign(VAlign_Center)
+					[
+						SNew(SOverlay)
+						+ SOverlay::Slot()
+					.HAlign(HAlign_Fill)
+					.VAlign(VAlign_Center)
+					.Padding(FMargin(30.f, 0.f))
+					[
+						SNew(SImage)
+						.Image(&MenuStyle->SliderBarBrush)
+					]
+					+ SOverlay::Slot()
+					.HAlign(HAlign_Fill)
+					.VAlign(VAlign_Center)
+					[
+						SAssignNew(SoSlider, SSlider)
+						.Style(&MenuStyle->SliderStyle)
+						.OnValueChanged(this, &SSlAiGameOptionWidget::SoundSliderChanged)
+
+					]
+
+					]
+					+ SOverlay::Slot()
+					.HAlign(HAlign_Right)
+					.VAlign(VAlign_Center)
+					[
+						SAssignNew(SoTextBlock, STextBlock)
+						.Font(MenuStyle->Font_40)
+					//.Text(FText::FromString("50%"))
+					]
+
 				]
 			]
 		]
@@ -125,6 +211,8 @@ void SSlAiGameOptionWidget::StyleInitialize()
 		break;
 	}
 
+	MuTextBlock->SetText(FText::FromString(FString::FromInt(50)+"%"));
+	SoTextBlock->SetText(FText::FromString(FString::FromInt(50) + "%"));
 }
 void SSlAiGameOptionWidget::ZhCheckBoxStateChanged(ECheckBoxState NewState)
 {
@@ -137,5 +225,11 @@ void SSlAiGameOptionWidget::EnCheckBoxStateChanged(ECheckBoxState NewState)
 	EnCheckBox->SetIsChecked(ECheckBoxState::Checked);
 	ZhCheckBox->SetIsChecked(ECheckBoxState::Unchecked);
 	SlAiDaTaHandle::Get()->ChangeLocalizationCulture(ECultureTeam::EN);
+}
+void SSlAiGameOptionWidget::MusicSliderChanged(float Value)
+{
+}
+void SSlAiGameOptionWidget::SoundSliderChanged(float Value)
+{
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
