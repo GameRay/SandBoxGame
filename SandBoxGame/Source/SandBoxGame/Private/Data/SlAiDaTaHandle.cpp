@@ -7,6 +7,8 @@ TSharedPtr<SlAiDaTaHandle> SlAiDaTaHandle::DataInstance = NULL;
 SlAiDaTaHandle::SlAiDaTaHandle()
 {
 	CurrentCulture = ECultureTeam::ZH;
+	MusicVolume = 0.5f;
+	SoundVolume = 0.5f;
 }
 
 void SlAiDaTaHandle::Initialize()
@@ -37,6 +39,29 @@ void SlAiDaTaHandle::ChangeLocalizationCulture(ECultureTeam Culture)
 		break;
 	}
 	CurrentCulture = Culture;
+}
+
+void SlAiDaTaHandle::ResetMenuVolume(float Music, float Sound)
+
+{
+	if (Music>=0)
+	{
+		MusicVolume = Music;
+	}
+	if (Sound)
+	{
+		SoundVolume = Sound;
+	}
+}
+
+float SlAiDaTaHandle::GetMusicVolume()
+{
+	return MusicVolume;
+}
+
+float SlAiDaTaHandle::GetSoundVolume()
+{
+	return SoundVolume;
 }
 
 TSharedRef<SlAiDaTaHandle> SlAiDaTaHandle::Create()

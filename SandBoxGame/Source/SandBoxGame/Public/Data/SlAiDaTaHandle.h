@@ -14,10 +14,19 @@ public:
 	SlAiDaTaHandle();
 	static void Initialize();
 	static TSharedPtr<SlAiDaTaHandle> Get();
-	ECultureTeam CurrentCulture;
+
 	void ChangeLocalizationCulture(ECultureTeam Culture);
+public:
+	ECultureTeam CurrentCulture;
+	void ResetMenuVolume(float Music, float Sound);
+	float GetMusicVolume();
+	float GetSoundVolume();
+
 private:
 	static TSharedRef<SlAiDaTaHandle> Create();
+	float MusicVolume;
+	float SoundVolume;
+
 private:
 	static TSharedPtr<SlAiDaTaHandle> DataInstance;
 };

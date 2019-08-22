@@ -99,6 +99,8 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 			.ItemType(EMenuItem::StartGame)
 		.OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked)*/
 			SNew(SSlAiGameOptionWidget)
+			.ChangeCulture(this,&SSlAiMenuWidget::ChangeCulture)
+			.ChangeVolume(this,&SSlAiMenuWidget::ChangeVolume)
 			
 		];
 	
@@ -107,6 +109,14 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type)
 {
 	TitleText->SetText(NSLOCTEXT("SlAiMenu","StartGame","StartGame"));
+}
+void SSlAiMenuWidget::ChangeCulture(ECultureTeam culture)
+{
+	SlAiDaTaHandle::Get()->ChangeLocalizationCulture(culture);
+}
+void SSlAiMenuWidget::ChangeVolume(float Music, float Sound)
+{
+	SlAiDaTaHandle::Get()->ResetMenuVolume(Music,Sound);
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE

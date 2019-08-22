@@ -14,6 +14,8 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSlAiGameOptionWidget::Construct(const FArguments& InArgs)
 {
 	MenuStyle = &SlAiStyle::Get().GetWidgetStyle<FSlAiMenuStyle>("BPSlAiMenuStyle");
+	ChangeCulture = InArgs._ChangeCulture;
+	ChangeVolume = InArgs._ChangeVolume;
 	
 	ChildSlot
 	[
@@ -210,26 +212,34 @@ void SSlAiGameOptionWidget::StyleInitialize()
 	default:
 		break;
 	}
-
-	MuTextBlock->SetText(FText::FromString(FString::FromInt(50)+"%"));
-	SoTextBlock->SetText(FText::FromString(FString::FromInt(50) + "%"));
+	//初始化音量音效
+	MuSlider->SetValue(SlAiDaTaHandle::Get()->GetMusicVolume());
+	SoSlider->SetValue(SlAiDaTaHandle::Get()->GetSoundVolume());
+	MuTextBlock->SetText(FText::FromString(FString::FromInt(SlAiDaTaHandle::Get()->GetMusicVolume())+"%"));
+	SoTextBlock->SetText(FText::FromString(FString::FromInt(SlAiDaTaHandle::Get()->GetSoundVolume()) + "%"));
 }
 void SSlAiGameOptionWidget::ZhCheckBoxStateChanged(ECheckBoxState NewState)
 {
 	EnCheckBox->SetIsChecked(ECheckBoxState::Unchecked);
 	ZhCheckBox->SetIsChecked(ECheckBoxState::Checked);
-	SlAiDaTaHandle::Get()->ChangeLocalizationCulture(ECultureTeam::ZH);
+	//SlAiDaTaHandle::Get()->ChangeLocalizationCulture(ECultureTeam::ZH);
+	ChangeCulture.ExecuteIfBound(ECultureTeam::ZH);
 }
 void SSlAiGameOptionWidget::EnCheckBoxStateChanged(ECheckBoxState NewState)
 {
 	EnCheckBox->SetIsChecked(ECheckBoxState::Checked);
 	ZhCheckBox->SetIsChecked(ECheckBoxState::Unchecked);
-	SlAiDaTaHandle::Get()->ChangeLocalizationCulture(ECultureTeam::EN);
+	//SlAiDaTaHandle::Get()->ChangeLocalizationCulture(ECultureTeam::EN);
+	ChangeCulture.ExecuteIfBound(ECultureTeam::EN);
 }
 void SSlAiGameOptionWidget::MusicSliderChanged(float Value)
 {
+	ChangeVolume.ExecuteIfBound(Value,-1);
+	MuTextBlock->SetText(FText::FromString(FString::FromInt(FMath::RoundToInt(Value*100)) + "%")); 
 }
 void SSlAiGameOptionWidget::SoundSliderChanged(float Value)
 {
+	ChangeVolume.ExecuteIfBound(-1, Value);
+	SoTextBlock->SetText(FText::FromString(FString::FromInt(FMath::RoundToInt(Value * 100)) + "%"));
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

@@ -9,9 +9,12 @@
 #include"STextBlock.h"
 #include"VerticalBox.h"
 #include"SSlAiMenuItemWidget.h"
+#include"SlAiDaTaHandle.h"
+#include"SlAiTypes.h"
 /*
  * 
  */
+
 class SANDBOXGAME_API SSlAiMenuWidget : public SCompoundWidget
 {
 public:
@@ -23,6 +26,8 @@ public:
 	void Construct(const FArguments& InArgs);
 private:
 	void MenuItemOnClicked(EMenuItem::Type);
+	void ChangeCulture(ECultureTeam culture);
+	void ChangeVolume(float Music, float Sound);
 private:
 	const struct FSlAiMenuStyle*MenuStyle;
 	TSharedPtr<SBox>RootSizeBox;
