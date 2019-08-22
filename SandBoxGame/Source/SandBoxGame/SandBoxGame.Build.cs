@@ -8,7 +8,7 @@ public class SandBoxGame : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","Slate","SlateCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","Slate","SlateCore","Json","JsonUtilities" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

@@ -24,9 +24,37 @@ public:
 
 private:
 	static TSharedRef<SlAiDaTaHandle> Create();
-	float MusicVolume;
-	float SoundVolume;
+	template<typename TEnum>
+	FString GetEnumValueAsString(const FString&Name, TEnum Value);
+	template<typename TEnum>
+	TEnum GetEnumValueFromString(const FString&Name, FString Value);
+	
+
 
 private:
 	static TSharedPtr<SlAiDaTaHandle> DataInstance;
+	float MusicVolume;
+	float SoundVolume;
 };
+
+template<typename TEnum>
+inline FString SlAiDaTaHandle::GetEnumValueAsString(const FString & Name, TEnum Value)
+{
+	const UEnum*EnumPtr = FindObject<UEnum>(ANY_PACKAGE, *Name, true);
+	if (!EnumPtr)
+	{
+		return FString("InValid");
+	}
+	return EnumPtr->GetEnumName((int32)Value);
+}
+
+template<typename TEnum>
+inline TEnum SlAiDaTaHandle::GetEnumValueFromString(const FString & Name, FString Value)
+{
+	const UEnum*EnumPtr = FindObject<UEnum>(ANY_PACKAGE, *Name, true);
+	if (!EnumPtr)
+	{
+		return TEnum(0);
+	}
+	return EnumPtr->GetIndexByName(FName(*Value));
+}
