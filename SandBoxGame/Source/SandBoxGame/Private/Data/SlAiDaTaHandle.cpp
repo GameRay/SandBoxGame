@@ -3,12 +3,17 @@
 
 #include "SlAiDaTaHandle.h"
 #include"Internationalization.h"
+#include "SlAiSingleton.h"
+#include"SlAiJsonHandle.h"
+#include "SlAiHelper.h"
+#include "SlAiSingleton.h"
 TSharedPtr<SlAiDaTaHandle> SlAiDaTaHandle::DataInstance = NULL;
 SlAiDaTaHandle::SlAiDaTaHandle()
 {
-	CurrentCulture = ECultureTeam::ZH;
-	MusicVolume = 0.5f;
-	SoundVolume = 0.5f;
+	InitRecordData();
+	//CurrentCulture = ECultureTeam::ZH;
+	//MusicVolume = 0.5f;
+	//SoundVolume = 0.5f;
 }
 
 void SlAiDaTaHandle::Initialize()
@@ -39,6 +44,8 @@ void SlAiDaTaHandle::ChangeLocalizationCulture(ECultureTeam Culture)
 		break;
 	}
 	CurrentCulture = Culture;
+	SlAiSingleton<SlAiJsonHandle>::Get()->UpdateRecordData(GetEnumValueAsString<ECultureTeam>("ECultureTeam", CurrentCulture)
+		, MusicVolume, SoundVolume, &RecordDataList);
 }
 
 void SlAiDaTaHandle::ResetMenuVolume(float Music, float Sound)
@@ -52,6 +59,8 @@ void SlAiDaTaHandle::ResetMenuVolume(float Music, float Sound)
 	{
 		SoundVolume = Sound;
 	}
+	SlAiSingleton<SlAiJsonHandle>::Get()->UpdateRecordData(GetEnumValueAsString<ECultureTeam>("ECultureTeam",CurrentCulture)
+	,MusicVolume,SoundVolume,&RecordDataList);
 }
 
 float SlAiDaTaHandle::GetMusicVolume()
@@ -62,6 +71,21 @@ float SlAiDaTaHandle::GetMusicVolume()
 float SlAiDaTaHandle::GetSoundVolume()
 {
 	return SoundVolume;
+}
+
+void SlAiDaTaHandle::InitRecordData()
+{
+	FString Culture;
+	SlAiSingleton<SlAiJsonHandle>::Get()->RecordDataJsonRead(Culture,MusicVolume,SoundVolume,RecordDataList);
+
+	SlAiHelper::DEBUG(Culture + "--"+FString::SanitizeFloat(MusicVolume) + "--" + FString::SanitizeFloat(SoundVolume));
+	for (TArray<FString>::TIterator It(RecordDataList);It;++It )
+	{
+	SlAiHelper::DEBUG(*It);
+	}
+
+	ChangeLocalizationCulture(GetEnumValueFromString<ECultureTeam>("ECultureTeam",Culture));
+	ResetMenuVolume(MusicVolume, SoundVolume);
 }
 
 TSharedRef<SlAiDaTaHandle> SlAiDaTaHandle::Create()

@@ -6,17 +6,21 @@
 #include "SlAiHelper.h"
 #include "Json.h"
 #include "JsonReader.h"
+#include "SlAiSingleton.h"
 
 SlAiJsonHandle::SlAiJsonHandle()
 {
 	RecordDataFileName = FString("RecordData.json");
-	RelativePath = FString("Res/ConfigData/");
+	RelativePathJL = FString("Res/ConfigData/");
 }
 
 void SlAiJsonHandle::RecordDataJsonRead(FString & Culture, float & MusicVolume, float & SoundVolume, TArray<FString>& RecordDataList)
 {
 	FString JsonValue;
-	LoadStringFromFile(RecordDataFileName, RelativePath, JsonValue);
+	if (!LoadStringFromFile(RecordDataFileName, RelativePathJL, JsonValue))
+	{
+		return;
+	}
 	TArray<TSharedPtr<FJsonValue>>JsonParsed;
 	TSharedRef<TJsonReader<TCHAR>>JsonReader = TJsonReaderFactory<TCHAR>::Create(JsonValue);
 
@@ -40,12 +44,67 @@ void SlAiJsonHandle::RecordDataJsonRead(FString & Culture, float & MusicVolume, 
 	}
 }
 
+void SlAiJsonHandle::UpdateRecordData(FString Culture, float MusiVolume, float SoundVolume, TArray<FString>* RecordDataList)
+{
+	TSharedPtr <FJsonObject>JsonObject= MakeShareable(new FJsonObject);
+	TArray<TSharedPtr<FJsonValue>>BaseDataArray;
+	TSharedPtr<FJsonObject>CultureObject = MakeShareable(new FJsonObject);
+	CultureObject->SetStringField("Culture", Culture);
+	TSharedPtr<FJsonValueObject> CultureValue = MakeShareable(new FJsonValueObject(CultureObject));
+
+	TSharedPtr<FJsonObject>MusicVolumeObject = MakeShareable(new FJsonObject);
+	CultureObject->SetNumberField("MusicVolume", MusiVolume);
+	TSharedPtr<FJsonValueObject> MusicVolumeValue = MakeShareable(new FJsonValueObject(MusicVolumeObject));
+
+	TSharedPtr<FJsonObject>SoundVolumeObject = MakeShareable(new FJsonObject);
+	CultureObject->SetNumberField("SoundVolume", SoundVolume);
+	TSharedPtr<FJsonValueObject> SoundVolumeValue = MakeShareable(new FJsonValueObject(SoundVolumeObject));
+
+	TArray<TSharedPtr<FJsonValue>> RecordDataArray;
+
+	for (int i=0;i<RecordDataList->Num();i++)
+	{
+		TSharedPtr<FJsonObject> RecordItem = MakeShareable(new FJsonObject);
+		RecordItem->SetStringField(FString::FromInt(i), ((*RecordDataList)[i]));
+		TSharedPtr<FJsonValueObject>RecordDataValue = MakeShareable(new FJsonValueObject(RecordItem));
+		RecordDataArray.Add(RecordDataValue);
+	}
+	TSharedPtr<FJsonObject>RecordDataObject = MakeShareable(new FJsonObject);
+	RecordDataObject->SetArrayField("RecordData", RecordDataArray);
+	TSharedPtr<FJsonValueObject>RecordDataValue = MakeShareable(new FJsonValueObject(RecordDataObject));
+
+
+	BaseDataArray.Add(CultureValue);
+
+	BaseDataArray.Add(MusicVolumeValue);
+
+	BaseDataArray.Add(SoundVolumeValue);
+
+	BaseDataArray.Add(RecordDataValue);
+
+	JsonObject->SetArrayField("T", BaseDataArray);
+
+	FString JsonStr;
+	GetFStringInJsonData(JsonObject, JsonStr);
+
+	SlAiHelper::DEBUG(FString("Origin Str:" + JsonStr));
+
+	JsonStr.RemoveAt(0, 8);
+	JsonStr.RemoveFromEnd(FString("}"));
+	SlAiHelper::DEBUG(FString("Final Str:" + JsonStr));
+	WriteFileWithJsonData(JsonStr, RelativePathJL,RecordDataFileName);
+}
+
 bool SlAiJsonHandle::LoadStringFromFile(const FString & FileName, const FString & RelaPath, FString & ResultString)
 {
 	if (!FileName.IsEmpty())
 	{
-		FString AbsoPath = FPaths::GameContentDir() + RelativePath + RecordDataFileName;
-		if (FPaths::DirectoryExists(AbsoPath))
+		//FString AbsoPath = FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir() + RelativePathJL + RecordDataFileName) ;
+		FString AbsoPath = FPaths::ProjectContentDir() + RelativePathJL + RecordDataFileName;
+		//TCHAR*a = TEXT("/");
+		//TCHAR*b = TEXT("\\");
+		//AbsoPath = AbsoPath.Replace(a,b);
+		//if (FPaths::DirectoryExists(AbsoPath))
 		{
 			if (FFileHelper::LoadFileToString(ResultString,*AbsoPath))
 			{
@@ -56,10 +115,38 @@ bool SlAiJsonHandle::LoadStringFromFile(const FString & FileName, const FString 
 				SlAiHelper::DEBUG(FString("Load Error") + AbsoPath);
 			}
 		}
+		/*	else
+			{
+				SlAiHelper::DEBUG(FString("File Not Exist")+AbsoPath);
+			}*/
+	}
+	return false;
+}
+
+bool SlAiJsonHandle::WriteFileWithJsonData(const FString & JsonStr, const FString & RelaPath, const FString & FileName)
+{
+	if (!JsonStr.IsEmpty())
+	{
+		FString path = FPaths::GameContentDir() + RelaPath + FileName;
+		if (FFileHelper::SaveStringToFile(JsonStr,*path))
+		{
+			return true;
+		}
 		else
 		{
-			SlAiHelper::DEBUG(FString("File Not Exist")+AbsoPath);
+			SlAiHelper::DEBUG(FString("Save") + path + FString("Failed"));
 		}
+	}
+	return false;
+}
+
+bool SlAiJsonHandle::GetFStringInJsonData(const TSharedPtr<FJsonObject>&JsonObj, FString&JsonStr)
+{
+	if (JsonObj.IsValid()&&JsonObj->Values.Num()>0)
+	{
+		TSharedRef<TJsonWriter<TCHAR>>JsonWriter = TJsonWriterFactory<TCHAR>::Create(&JsonStr);
+		FJsonSerializer::Serialize(JsonObj.ToSharedRef(), JsonWriter);
+		return true;
 	}
 	return false;
 }

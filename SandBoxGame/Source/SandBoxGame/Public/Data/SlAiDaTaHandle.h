@@ -23,6 +23,7 @@ public:
 	float GetSoundVolume();
 
 private:
+	void InitRecordData();
 	static TSharedRef<SlAiDaTaHandle> Create();
 	template<typename TEnum>
 	FString GetEnumValueAsString(const FString&Name, TEnum Value);
@@ -35,6 +36,7 @@ private:
 	static TSharedPtr<SlAiDaTaHandle> DataInstance;
 	float MusicVolume;
 	float SoundVolume;
+	TArray<FString>RecordDataList;
 };
 
 template<typename TEnum>
@@ -45,7 +47,7 @@ inline FString SlAiDaTaHandle::GetEnumValueAsString(const FString & Name, TEnum 
 	{
 		return FString("InValid");
 	}
-	return EnumPtr->GetEnumName((int32)Value);
+	return EnumPtr->GetNameStringByIndex((int32)Value);
 }
 
 template<typename TEnum>
@@ -56,5 +58,5 @@ inline TEnum SlAiDaTaHandle::GetEnumValueFromString(const FString & Name, FStrin
 	{
 		return TEnum(0);
 	}
-	return EnumPtr->GetIndexByName(FName(*Value));
+	return  (TEnum)EnumPtr->GetIndexByName(FName(*Value));
 }
