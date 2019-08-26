@@ -21,6 +21,8 @@ public:
 	void ResetMenuVolume(float Music, float Sound);
 	float GetMusicVolume();
 	float GetSoundVolume();
+	TArray<FString>RecordDataList;
+	FString RecordName;
 
 private:
 	void InitRecordData();
@@ -36,7 +38,8 @@ private:
 	static TSharedPtr<SlAiDaTaHandle> DataInstance;
 	float MusicVolume;
 	float SoundVolume;
-	TArray<FString>RecordDataList;
+
+
 };
 
 template<typename TEnum>

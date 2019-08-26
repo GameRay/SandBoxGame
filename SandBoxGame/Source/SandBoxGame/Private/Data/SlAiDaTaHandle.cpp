@@ -75,14 +75,15 @@ float SlAiDaTaHandle::GetSoundVolume()
 
 void SlAiDaTaHandle::InitRecordData()
 {
+	RecordName = FString("");
 	FString Culture;
 	SlAiSingleton<SlAiJsonHandle>::Get()->RecordDataJsonRead(Culture,MusicVolume,SoundVolume,RecordDataList);
 
-	SlAiHelper::DEBUG(Culture + "--"+FString::SanitizeFloat(MusicVolume) + "--" + FString::SanitizeFloat(SoundVolume));
-	for (TArray<FString>::TIterator It(RecordDataList);It;++It )
-	{
-	SlAiHelper::DEBUG(*It);
-	}
+	//SlAiHelper::DEBUG(Culture + "--"+FString::SanitizeFloat(MusicVolume) + "--" + FString::SanitizeFloat(SoundVolume));
+	//for (TArray<FString>::TIterator It(RecordDataList);It;++It )
+	//{
+	//SlAiHelper::DEBUG(*It);
+	//}
 
 	ChangeLocalizationCulture(GetEnumValueFromString<ECultureTeam>("ECultureTeam",Culture));
 	ResetMenuVolume(MusicVolume, SoundVolume);

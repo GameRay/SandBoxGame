@@ -13,6 +13,8 @@
 #include"SlAiTypes.h"
 #include"Common/SlAiHelper.h"
 #include"UI/Widget/SSlAiGameOptionWidget.h"
+#include "SSlAiNewGameWidget.h"
+#include "SSlAiChooseRecordWidget.h"
 
 #define LOCTEXT_NAMESPACE "SSlAiMenuWidget"
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
@@ -98,10 +100,11 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 			.ItemText(NSLOCTEXT("SlAiMenu", "StartGame", "StartGame"))
 			.ItemType(EMenuItem::StartGame)
 		.OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked)*/
-			SNew(SSlAiGameOptionWidget)
-			.ChangeCulture(this,&SSlAiMenuWidget::ChangeCulture)
-			.ChangeVolume(this,&SSlAiMenuWidget::ChangeVolume)
-			
+
+			//SNew(SSlAiGameOptionWidget)
+			//.ChangeCulture(this,&SSlAiMenuWidget::ChangeCulture)
+			//.ChangeVolume(this,&SSlAiMenuWidget::ChangeVolume)
+			SNew(SSlAiChooseRecordWidget)
 		];
 	
 }
