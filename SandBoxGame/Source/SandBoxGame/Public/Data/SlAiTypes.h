@@ -34,3 +34,16 @@ namespace EMenuItem
 
 	};
 }
+
+namespace EMenuType
+{
+	enum Type
+	{
+		None,
+		MainMenu,
+		StartGame,
+		GameOption,
+		NewGame,
+		ChooseRecord
+	};
+}
