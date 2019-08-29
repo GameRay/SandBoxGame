@@ -42,7 +42,7 @@ public:
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 private:
-	void MenuItemOnClicked(EMenuItem::Type);
+	void MenuItemOnClicked(EMenuItem::Type ItemType);
 	void ChangeCulture(ECultureTeam culture);
 	void ChangeVolume(float Music, float Sound);
 	//初始化所有空间
@@ -61,5 +61,11 @@ private:
 	TSharedPtr<SSlAiGameOptionWidget> GameOptionWidget;
 	TSharedPtr<SSlAiNewGameWidget> NewGameWidget;
 	TSharedPtr<SSlAiChooseRecordWidget> ChooseRecordWidget;
+
+	FCurveSequence MenuAnimation;
+	FCurveHandle MenuCurve;
+	float CurrentHeight;
+	bool IsMenuShow;
+	bool ControlLocked;
 
 };

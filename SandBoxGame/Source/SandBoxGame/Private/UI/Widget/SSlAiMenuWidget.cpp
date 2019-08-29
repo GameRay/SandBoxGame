@@ -100,9 +100,47 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 	InitializeMenuList();
 }
 
-void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type)
+void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type ItemType)
 {
 	//TitleText->SetText(NSLOCTEXT("SlAiMenu","StartGame","StartGame"));
+	switch (ItemType)
+	{
+	case EMenuItem::NONE:
+		break;
+	case EMenuItem::StartGame:
+		ChooseWidget(EMenuType::StartGame);
+		break;
+	case EMenuItem::GameOption:
+		ChooseWidget(EMenuType::GameOption);
+		break;
+	case EMenuItem::QuitGame:
+		break;
+	case EMenuItem::NewGame:
+		ChooseWidget(EMenuType::NewGame);
+		break;
+	case EMenuItem::LoadRecord:
+		ChooseWidget(EMenuType::ChooseRecord);
+		break;
+	case EMenuItem::StartGameGoBack:
+		ChooseWidget(EMenuType::MainMenu);
+		break;
+	case EMenuItem::GameOptionGoBack:
+		ChooseWidget(EMenuType::MainMenu);
+		break;
+	case EMenuItem::NewGameGoBack:
+		ChooseWidget(EMenuType::StartGame);
+		break;
+	case EMenuItem::ChooseRecordGoBack:
+		ChooseWidget(EMenuType::StartGame);
+		break;
+	case EMenuItem::EnterGame:
+		break;
+	case EMenuItem::EnterRecord:
+		break;
+	default:
+		break;
+	}
+	
 }
 void SSlAiMenuWidget::ChangeCulture(ECultureTeam culture)
 {
@@ -158,7 +196,7 @@ void SSlAiMenuWidget::InitializeMenuList()
 	NewGameList.Add(NewGameWidget);
 	NewGameList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterGame", "EnterGame")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	NewGameList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiGame", "GoBack", "GoBack")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
-	MenuMap.Add(EMenuType::GameOption, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "NewGame", "NewGame"), 510.f, &NewGameList)));
+	MenuMap.Add(EMenuType::NewGame, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "NewGame", "NewGame"), 510.f, &NewGameList)));
 
 
 	//选择存档
@@ -168,7 +206,7 @@ void SSlAiMenuWidget::InitializeMenuList()
 	ChooseRecordList.Add(ChooseRecordWidget);
 	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterRecord", "EnterRecord")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiGame", "GoBack", "GoBack")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
-	MenuMap.Add(EMenuType::GameOption, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "LoadRecord", "LoadRecord"), 510.f, &NewGameList)));
+	MenuMap.Add(EMenuType::ChooseRecord, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "LoadRecord", "LoadRecord"), 510.f, &NewGameList)));
 
 	ChooseWidget(EMenuType::MainMenu);
 }
