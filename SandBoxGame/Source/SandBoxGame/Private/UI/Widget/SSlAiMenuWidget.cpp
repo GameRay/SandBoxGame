@@ -15,6 +15,8 @@
 #include"UI/Widget/SSlAiGameOptionWidget.h"
 #include "SSlAiNewGameWidget.h"
 #include "SSlAiChooseRecordWidget.h"
+#include"SlAiMenuController.h"
+#include "SlAiHelper.h"
 
 
 #define LOCTEXT_NAMESPACE "SSlAiMenuWidget"
@@ -22,7 +24,7 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 {
 	MenuStyle = &SlAiStyle::Get().GetWidgetStyle<FSlAiMenuStyle>("BPSlAiMenuStyle");
-	
+	FSlateApplication::Get().PlaySound(MenuStyle->MenuBackGroundMusic);
 	FInternationalization::Get().SetCurrentCulture(TEXT("zh"));
 	ChildSlot
 	[
@@ -167,6 +169,8 @@ void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type ItemType)
 		break;
 	case EMenuItem::QuitGame:
 		ControlLocked = false;
+		SlAiHelper::PlayerSoundAndCall(GWorld,MenuStyle->ExitGameSound,this,&SSlAiMenuWidget::QuitGame);
+		//QuitGame();
 		break;
 	case EMenuItem::NewGame:
 		PlayClose(EMenuType::NewGame);
@@ -187,7 +191,9 @@ void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type ItemType)
 		PlayClose(EMenuType::StartGame);
 		break;
 	case EMenuItem::EnterGame:
-		ControlLocked = false;
+		//ControlLocked = false;
+		SlAiHelper::PlayerSoundAndCall(GWorld, MenuStyle->StartGameSound, this, &SSlAiMenuWidget::EnterGame);
+		EnterGame();
 		break;
 	case EMenuItem::EnterRecord:
 		ControlLocked = false;
@@ -321,6 +327,20 @@ void SSlAiMenuWidget::PlayClose(EMenuType::Type NewMenu)
 	CurrentHeight = (*MenuMap.Find(NewMenu))->MenuHeight;
 	AnimState = EMenuAnim::Close;
 	MenuAnimation.PlayReverse(this->AsShared());
+
+	FSlateApplication::Get().PlaySound(MenuStyle->MenuItemChangeGameSound);
+}
+void SSlAiMenuWidget::QuitGame()
+{
+	//UKismetSystemLibrary::QuitGame(GWorld, UGameplayStatics::GetPlayerController(GWorld, 0), EQuitPreference::Quit,false);
+	APlayerController * PlayerController =UGameplayStatics::GetPlayerController(GWorld, 0);
+	if (PlayerController)
+	{
+		PlayerController->ConsoleCommand("quit");
+	}
+}
+void SSlAiMenuWidget::EnterGame()
+{
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE

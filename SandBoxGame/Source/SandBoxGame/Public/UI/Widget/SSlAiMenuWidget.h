@@ -56,6 +56,9 @@ private:
 	void InitializedAnimation();
 
 	void PlayClose(EMenuType::Type NewMenu);
+	void QuitGame();
+
+	void EnterGame();
 private:
 	const struct FSlAiMenuStyle*MenuStyle;
 	TSharedPtr<SBox>RootSizeBox;
