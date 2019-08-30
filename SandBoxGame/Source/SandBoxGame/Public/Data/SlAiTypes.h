@@ -47,3 +47,12 @@ namespace EMenuType
 		ChooseRecord
 	};
 }
+namespace EMenuAnim
+{
+	enum  Type
+	{
+		Stop,
+		Close,
+		Open
+	};
+}

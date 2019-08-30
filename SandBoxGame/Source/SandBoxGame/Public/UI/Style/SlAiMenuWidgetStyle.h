@@ -8,6 +8,7 @@
 #include "SlateBrush.h"
 #include"SlateFontInfo.h"
 #include"Styling/SlateStyle.h"
+#include"SlateSound.h"
 #include "SlAiMenuWidgetStyle.generated.h"
 
 
@@ -62,6 +63,16 @@ struct SANDBOXGAME_API FSlAiMenuStyle : public FSlateWidgetStyle
 	FSlateBrush SliderBarBrush;
 	UPROPERTY(EditAnywhere, Category = "Menu")
 	FSliderStyle SliderStyle;
+
+	//ÉùÒôÎÄ¼þ
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	FSlateSound  StartGameSound;
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	FSlateSound  ExitGameSound;
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	FSlateSound  MenuItemChangeGameSound;
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	FSlateSound  MenuBackGroundMusic;
 
 
 };

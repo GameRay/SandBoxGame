@@ -98,44 +98,99 @@ void SSlAiMenuWidget::Construct(const FArguments& InArgs)
 	
 
 	InitializeMenuList();
+	InitializedAnimation();
+}
+
+void SSlAiMenuWidget::Tick(const FGeometry & AllottedGeometry, const double InCurrentTime, const float InDeltaTime)
+{
+
+	switch (AnimState)
+	{
+	case EMenuAnim::Stop:
+		break;
+	case EMenuAnim::Close:
+		if (MenuAnimation.IsPlaying())
+		{
+			ResetWidgetSize(MenuCurve.GetLerp()*600.f ,-1.f);
+			if (MenuCurve.GetLerp()<0.6f&&IsMenuShow)
+			{
+				ChooseWidget(EMenuType::None);
+			}
+			
+		}
+		else
+		{
+			AnimState = EMenuAnim::Open;
+			MenuAnimation.Play(this->AsShared());
+		}
+		break;
+	case EMenuAnim::Open:
+		if (MenuAnimation.IsPlaying())
+		{
+			ResetWidgetSize(MenuCurve.GetLerp()*600.f, CurrentHeight);
+			if (MenuCurve.GetLerp() >0.6f&&!IsMenuShow)
+			{
+				ChooseWidget(CurrentMenu);
+			}
+
+		}
+		else
+		{
+			AnimState = EMenuAnim::Stop;
+			ControlLocked = false;
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type ItemType)
 {
 	//TitleText->SetText(NSLOCTEXT("SlAiMenu","StartGame","StartGame"));
+
+	if (ControlLocked)
+	{
+		return;
+	}
+	ControlLocked = true;
 	switch (ItemType)
 	{
-	case EMenuItem::NONE:
-		break;
+	/*case EMenuItem::NONE:
+		PlayClose(EMenuType::None);
+		break;*/
 	case EMenuItem::StartGame:
-		ChooseWidget(EMenuType::StartGame);
+		PlayClose(EMenuType::StartGame);
 		break;
 	case EMenuItem::GameOption:
-		ChooseWidget(EMenuType::GameOption);
+		PlayClose(EMenuType::GameOption);
 		break;
 	case EMenuItem::QuitGame:
+		ControlLocked = false;
 		break;
 	case EMenuItem::NewGame:
-		ChooseWidget(EMenuType::NewGame);
+		PlayClose(EMenuType::NewGame);
 		break;
 	case EMenuItem::LoadRecord:
-		ChooseWidget(EMenuType::ChooseRecord);
+		PlayClose(EMenuType::ChooseRecord);
 		break;
 	case EMenuItem::StartGameGoBack:
-		ChooseWidget(EMenuType::MainMenu);
+		PlayClose(EMenuType::MainMenu);
 		break;
 	case EMenuItem::GameOptionGoBack:
-		ChooseWidget(EMenuType::MainMenu);
+		PlayClose(EMenuType::MainMenu);
 		break;
 	case EMenuItem::NewGameGoBack:
-		ChooseWidget(EMenuType::StartGame);
+		PlayClose(EMenuType::StartGame);
 		break;
 	case EMenuItem::ChooseRecordGoBack:
-		ChooseWidget(EMenuType::StartGame);
+		PlayClose(EMenuType::StartGame);
 		break;
 	case EMenuItem::EnterGame:
+		ControlLocked = false;
 		break;
 	case EMenuItem::EnterRecord:
+		ControlLocked = false;
 		break;
 	default:
 		break;
@@ -206,14 +261,19 @@ void SSlAiMenuWidget::InitializeMenuList()
 	ChooseRecordList.Add(ChooseRecordWidget);
 	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterRecord", "EnterRecord")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiGame", "GoBack", "GoBack")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
-	MenuMap.Add(EMenuType::ChooseRecord, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "LoadRecord", "LoadRecord"), 510.f, &NewGameList)));
+	MenuMap.Add(EMenuType::ChooseRecord, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "LoadRecord", "LoadRecord"), 510.f, &ChooseRecordList)));
 
 	ChooseWidget(EMenuType::MainMenu);
 }
 void SSlAiMenuWidget::ChooseWidget(EMenuType::Type WidgetType)
 {
+	IsMenuShow = WidgetType != EMenuType::None;
 	ContentBox->ClearChildren();
 	if (WidgetType ==EMenuType::None)
+	{
+		return;
+	}
+	if (!MenuMap.Find(WidgetType))
 	{
 		return;
 	}
@@ -238,6 +298,29 @@ void SSlAiMenuWidget::ResetWidgetSize(float NewWidget, float NewHeight)
 	{
 		RootSizeBox->SetHeightOverride(NewHeight);
 	}
+}
+void SSlAiMenuWidget::InitializedAnimation()
+{
+	const float StartDelay = 0.3f;
+	const float AnimDuration = 0.6f;
+	MenuAnimation = FCurveSequence();
+	MenuCurve = MenuAnimation.AddCurve(StartDelay, AnimDuration, ECurveEaseFunction::QuadInOut);
+
+	ResetWidgetSize(600.f, 510.f);
+
+	ChooseWidget(EMenuType::MainMenu);
+
+	ControlLocked = false;
+	AnimState = EMenuAnim::Stop;
+	MenuAnimation.JumpToEnd();
+
+}
+void SSlAiMenuWidget::PlayClose(EMenuType::Type NewMenu)
+{
+	CurrentMenu = NewMenu;
+	CurrentHeight = (*MenuMap.Find(NewMenu))->MenuHeight;
+	AnimState = EMenuAnim::Close;
+	MenuAnimation.PlayReverse(this->AsShared());
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE

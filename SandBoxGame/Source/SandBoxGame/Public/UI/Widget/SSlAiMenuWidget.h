@@ -39,8 +39,10 @@ public:
 	{}
 	SLATE_END_ARGS()
 
+		
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
+	virtual void Tick(const FGeometry& AllottedGeometry, const double InCurrentTime, const float InDeltaTime) override;
 private:
 	void MenuItemOnClicked(EMenuItem::Type ItemType);
 	void ChangeCulture(ECultureTeam culture);
@@ -50,6 +52,10 @@ private:
 	void ChooseWidget(EMenuType::Type WidgetType);
 
 	void ResetWidgetSize(float NewWidget,float  NewHeight);
+
+	void InitializedAnimation();
+
+	void PlayClose(EMenuType::Type NewMenu);
 private:
 	const struct FSlAiMenuStyle*MenuStyle;
 	TSharedPtr<SBox>RootSizeBox;
@@ -67,5 +73,7 @@ private:
 	float CurrentHeight;
 	bool IsMenuShow;
 	bool ControlLocked;
+	EMenuAnim::Type AnimState;
+	EMenuType::Type CurrentMenu;
 
 };
