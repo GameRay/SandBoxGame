@@ -53,11 +53,11 @@ void SlAiJsonHandle::UpdateRecordData(FString Culture, float MusiVolume, float S
 	TSharedPtr<FJsonValueObject> CultureValue = MakeShareable(new FJsonValueObject(CultureObject));
 
 	TSharedPtr<FJsonObject>MusicVolumeObject = MakeShareable(new FJsonObject);
-	CultureObject->SetNumberField("MusicVolume", MusiVolume);
+	MusicVolumeObject->SetNumberField("MusicVolume", MusiVolume);
 	TSharedPtr<FJsonValueObject> MusicVolumeValue = MakeShareable(new FJsonValueObject(MusicVolumeObject));
 
 	TSharedPtr<FJsonObject>SoundVolumeObject = MakeShareable(new FJsonObject);
-	CultureObject->SetNumberField("SoundVolume", SoundVolume);
+	SoundVolumeObject->SetNumberField("SoundVolume", SoundVolume);
 	TSharedPtr<FJsonValueObject> SoundVolumeValue = MakeShareable(new FJsonValueObject(SoundVolumeObject));
 
 	TArray<TSharedPtr<FJsonValue>> RecordDataArray;

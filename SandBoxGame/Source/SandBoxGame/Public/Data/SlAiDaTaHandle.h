@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include"SlAiTypes.h"
+#include "Engine/Classes/Sound/SoundCue.h"
+#include "SlAiStyle.h"
+#include "SlAiMenuWidgetStyle.h"
 
 /**
  * 
@@ -31,13 +34,15 @@ private:
 	FString GetEnumValueAsString(const FString&Name, TEnum Value);
 	template<typename TEnum>
 	TEnum GetEnumValueFromString(const FString&Name, FString Value);
-	
+	void InitializedMenuAudio();
 
 
 private:
 	static TSharedPtr<SlAiDaTaHandle> DataInstance;
 	float MusicVolume;
 	float SoundVolume;
+	TMap<FString, TArray<USoundCue*>> MenuAudioResource;
+	const struct FSlAiMenuStyle*MenuStyle;
 
 
 };

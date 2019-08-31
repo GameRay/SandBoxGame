@@ -169,7 +169,7 @@ void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type ItemType)
 		break;
 	case EMenuItem::QuitGame:
 		ControlLocked = false;
-		SlAiHelper::PlayerSoundAndCall(GWorld,MenuStyle->ExitGameSound,this,&SSlAiMenuWidget::QuitGame);
+		SlAiHelper::PlayerSoundAndCall<SSlAiMenuWidget>(GWorld,MenuStyle->ExitGameSound,this,&SSlAiMenuWidget::QuitGame);
 		//QuitGame();
 		break;
 	case EMenuItem::NewGame:

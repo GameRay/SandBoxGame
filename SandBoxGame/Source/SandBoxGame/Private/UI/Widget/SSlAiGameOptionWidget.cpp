@@ -179,6 +179,9 @@ void SSlAiGameOptionWidget::Construct(const FArguments& InArgs)
 			]
 		]
 	];
+	//MuSlider->SetValue(SlAiDaTaHandle::Get()->GetMusicVolume());
+	//SoSlider->SetValue(SlAiDaTaHandle::Get()->GetSoundVolume());
+
 	StyleInitialize();
 }
 void SSlAiGameOptionWidget::StyleInitialize()
@@ -215,8 +218,8 @@ void SSlAiGameOptionWidget::StyleInitialize()
 	//初始化音量音效
 	MuSlider->SetValue(SlAiDaTaHandle::Get()->GetMusicVolume());
 	SoSlider->SetValue(SlAiDaTaHandle::Get()->GetSoundVolume());
-	MuTextBlock->SetText(FText::FromString(FString::FromInt(SlAiDaTaHandle::Get()->GetMusicVolume())+"%"));
-	SoTextBlock->SetText(FText::FromString(FString::FromInt(SlAiDaTaHandle::Get()->GetSoundVolume()) + "%"));
+	MuTextBlock->SetText(FText::FromString(FString::FromInt(FMath::RoundToInt(SlAiDaTaHandle::Get()->GetMusicVolume()*100))+"%"));
+	SoTextBlock->SetText(FText::FromString(FString::FromInt(FMath::RoundToInt(SlAiDaTaHandle::Get()->GetSoundVolume()*100))+ "%"));
 }
 void SSlAiGameOptionWidget::ZhCheckBoxStateChanged(ECheckBoxState NewState)
 {
