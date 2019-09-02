@@ -192,11 +192,20 @@ void SSlAiMenuWidget::MenuItemOnClicked(EMenuItem::Type ItemType)
 		break;
 	case EMenuItem::EnterGame:
 		//ControlLocked = false;
-		SlAiHelper::PlayerSoundAndCall(GWorld, MenuStyle->StartGameSound, this, &SSlAiMenuWidget::EnterGame);
-		EnterGame();
+		if (NewGameWidget->AllowEnterGame())
+		{
+			SlAiHelper::PlayerSoundAndCall(GWorld, MenuStyle->StartGameSound, this, &SSlAiMenuWidget::EnterGame);
+			//EnterGame();
+		}
+		else
+		{
+			ControlLocked = false;
+		}
+		
 		break;
 	case EMenuItem::EnterRecord:
-		ControlLocked = false;
+		ChooseRecordWidget->UpdateRecordName();
+		SlAiHelper::PlayerSoundAndCall(GWorld, MenuStyle->StartGameSound, this, &SSlAiMenuWidget::EnterGame);
 		break;
 	default:
 		break;
@@ -255,7 +264,7 @@ void SSlAiMenuWidget::InitializeMenuList()
 	SAssignNew(NewGameWidget, SSlAiNewGameWidget);
 
 	NewGameList.Add(NewGameWidget);
-	NewGameList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterGame", "EnterGame")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
+	NewGameList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterGame", "EnterGame")).ItemType(EMenuItem::EnterGame).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	NewGameList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiGame", "GoBack", "GoBack")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	MenuMap.Add(EMenuType::NewGame, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "NewGame", "NewGame"), 510.f, &NewGameList)));
 
@@ -265,7 +274,7 @@ void SSlAiMenuWidget::InitializeMenuList()
 	SAssignNew(ChooseRecordWidget, SSlAiChooseRecordWidget);
 
 	ChooseRecordList.Add(ChooseRecordWidget);
-	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterRecord", "EnterRecord")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
+	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiMenu", "EnterRecord", "EnterRecord")).ItemType(EMenuItem::EnterGame).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	ChooseRecordList.Add(SNew(SSlAiMenuItemWidget).ItemText(NSLOCTEXT("SlAiGame", "GoBack", "GoBack")).ItemType(EMenuItem::StartGameGoBack).OnClicked(this, &SSlAiMenuWidget::MenuItemOnClicked));
 	MenuMap.Add(EMenuType::ChooseRecord, MakeShareable(new MenuGroup(NSLOCTEXT("SlAiMenu", "LoadRecord", "LoadRecord"), 510.f, &ChooseRecordList)));
 
@@ -341,6 +350,8 @@ void SSlAiMenuWidget::QuitGame()
 }
 void SSlAiMenuWidget::EnterGame()
 {
+	SlAiHelper::DEBUG("111111111111");
+	UGameplayStatics::OpenLevel(GWorld, FName("GameMap"));
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 #undef LOCTEXT_NAMESPACE
