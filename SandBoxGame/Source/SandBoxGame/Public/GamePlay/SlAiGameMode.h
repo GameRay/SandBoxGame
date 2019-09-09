@@ -4,16 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "SlAiMenuGameMode.generated.h"
+#include "SlAiGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SANDBOXGAME_API ASlAiMenuGameMode : public AGameModeBase
+class SANDBOXGAME_API ASlAiGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
-	ASlAiMenuGameMode();
+		ASlAiGameMode();
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds)override;
 };
