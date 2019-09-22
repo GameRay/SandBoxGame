@@ -2,12 +2,13 @@
 
 
 #include "SlAiPlayerCharacter.h"
-
+#include "ConstructorHelpers.h"
 // Sets default values
 ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> StaticMeshThird(TEXT("SkeletalMesh'/Game/Res/PolygonAdventure/Mannequin/Player/SkMesh/Player.Player'"));
 
 }
 
