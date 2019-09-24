@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 #include "SlAiPlayerCharacter.generated.h"
 
 UCLASS()
@@ -25,5 +27,15 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+public:
+	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
+	USpringArmComponent*CameraBoom;
+	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
+	UCameraComponent*ThirdCamera;
+	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
+	UCameraComponent*FirstCamera;
+private:
+	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
+		USkeletalMeshComponent*MeshFirst;
 
 };
