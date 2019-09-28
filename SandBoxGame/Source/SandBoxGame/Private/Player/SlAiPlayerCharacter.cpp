@@ -5,9 +5,13 @@
 #include "ConstructorHelpers.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
+#include"Classes/Components/CapsuleComponent.h"
+#include"Classes/Components/InputComponent.h"
+#include"Classes/GameFramework/Controller.h"
 // Sets default values
 ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 {
+	GetCapsuleComponent()->SetCollisionProfileName(FName("PlayerProfile"));
 	//第一人称Mesh
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> StaticMeshFirst(TEXT("SkeletalMesh'/Game/Res/PolygonAdventure/Mannequin/FirstPlayer/SkMesh/FirstPlayer.FirstPlayer'"));
 	
@@ -24,9 +28,16 @@ ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 	
 	MeshFirst->SetCollisionObjectType(ECC_Pawn);
 	MeshFirst->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	MeshFirst->SetCollisionResponseToChannels(ECR_Ignore);
+	MeshFirst->SetCollisionResponseToAllChannels(ECR_Ignore);
 	MeshFirst->SetRelativeLocation(FVector(0.f, 0.f, -95.f));
 	MeshFirst->SetRelativeRotation(FQuat::MakeFromEuler(FVector(0.f, 0.f, -90.f)));
+
+	//加载第一人称动画蓝图
+	UClass*FirstAnimInsClass = LoadClass<UAnimInstance>(NULL, TEXT("/Game/Blueprint/Player/FirstPlayer_Animationv.FirstPlayer_Animationv_C"));
+	if (FirstAnimInsClass)
+	{
+		MeshFirst->AnimClass = FirstAnimInsClass;
+	}
 	//
 
 	//第三人称Mesh
@@ -43,6 +54,12 @@ ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 	GetMesh()->SetRelativeLocation(FVector(0.f,0.f,-95.f));
 	GetMesh()->SetRelativeRotation(FQuat::MakeFromEuler(FVector(0.f, 0.f, - 90.f)));
 
+	//加载第三人称动画蓝图
+	UClass*ThirdAnimInsClass = LoadClass<UAnimInstance>(NULL, TEXT("/Game/Blueprint/Player/ThirdPlayer_Animation.ThirdPlayer_Animation_C"));
+	if (ThirdAnimInsClass)
+	{
+		GetMesh()->AnimClass = ThirdAnimInsClass;
+	}
 
 
 	//摄像机
@@ -62,6 +79,9 @@ ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 	FirstCamera->bUsePawnControlRotation = true;
 	FirstCamera->AddLocalOffset(FVector(0.f, 0.f, 60.f));
 
+	MeshFirst->SetVisibility(false);
+	FirstCamera->SetActive(false);
+	ThirdCamera->SetActive(true);
 }
 
 // Called when the game starts or when spawned
@@ -82,6 +102,60 @@ void ASlAiPlayerCharacter::Tick(float DeltaTime)
 void ASlAiPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	PlayerInputComponent->BindAxis("MoveForward",this,&ASlAiPlayerCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight",this,&ASlAiPlayerCharacter::MoveRight);
 
+
+
+}
+
+void ASlAiPlayerCharacter::MoveForward(float Value)
+{
+	if (Value!=0.f&&Controller)
+	{
+		const FRotator Rotation = Controller->GetControlRotation();
+		FVector Direction = FRotationMatrix(Rotation).GetScaledAxis(EAxis::X);
+
+		AddMovementInput(Direction,Value);
+	}
+}
+
+void ASlAiPlayerCharacter::MoveRight(float Value)
+{
+	if (Value != 0.f&&Controller)
+	{
+		const FQuat Rotation = GetActorQuat();
+		FVector Direction = FQuatRotationMatrix(Rotation).GetScaledAxis(EAxis::Y);
+
+		AddMovementInput(Direction, Value);
+	}
+}
+
+void ASlAiPlayerCharacter::LookUpAtRate(float Value)
+{
+}
+
+void ASlAiPlayerCharacter::Turn(float Value)
+{
+}
+
+void ASlAiPlayerCharacter::TurnAtRate(float Value)
+{
+}
+
+void ASlAiPlayerCharacter::OnStartJump()
+{
+}
+
+void ASlAiPlayerCharacter::OnStopJump()
+{
+}
+
+void ASlAiPlayerCharacter::OnStartRun()
+{
+}
+
+void ASlAiPlayerCharacter::OnStopRun()
+{
 }
 

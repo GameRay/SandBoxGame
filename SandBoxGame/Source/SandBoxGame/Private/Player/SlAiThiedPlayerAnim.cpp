@@ -3,3 +3,8 @@
 
 #include "SlAiThiedPlayerAnim.h"
 
+USlAiThiedPlayerAnim::USlAiThiedPlayerAnim()
+{
+	Direction = 0;
+	IsInAir = false;
+}

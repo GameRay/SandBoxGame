@@ -14,7 +14,7 @@ ASlAiGameMode::ASlAiGameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	HUDClass = ASlAiGameHUD::StaticClass();
-	PlayerControllerClass = ASlAiPlayerCharacter::StaticClass();
+	PlayerControllerClass = ASlAiPlayerController::StaticClass();
 	PlayerStateClass = ASlAiPlayerState::StaticClass();
 	DefaultPawnClass = ASlAiPlayerCharacter::StaticClass();
 

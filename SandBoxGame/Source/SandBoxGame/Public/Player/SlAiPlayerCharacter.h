@@ -27,6 +27,16 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+private:
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+	void LookUpAtRate(float Value);
+	void Turn(float Value);
+	void TurnAtRate(float Value);
+	void OnStartJump();
+	void OnStopJump();
+	void OnStartRun();
+	void OnStopRun();
 public:
 	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
 	USpringArmComponent*CameraBoom;

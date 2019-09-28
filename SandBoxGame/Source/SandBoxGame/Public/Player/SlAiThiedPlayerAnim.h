@@ -13,5 +13,10 @@ UCLASS()
 class SANDBOXGAME_API USlAiThiedPlayerAnim : public USlAiPlayerAnimInstance
 {
 	GENERATED_BODY()
-	
+	USlAiThiedPlayerAnim();
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
+	bool IsInAir;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
+	float Direction;
 };

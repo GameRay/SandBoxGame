@@ -13,5 +13,12 @@ UCLASS()
 class SANDBOXGAME_API USlAiPlayerAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
+public:
+	USlAiPlayerAnimInstance();
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
+	float Speed;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
+	FRotator SpinRotator;
 	
 };
