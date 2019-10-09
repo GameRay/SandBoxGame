@@ -14,6 +14,7 @@ class SANDBOXGAME_API USlAiThiedPlayerAnim : public USlAiPlayerAnimInstance
 {
 	GENERATED_BODY()
 	USlAiThiedPlayerAnim();
+	virtual void UpdateParameter()override;
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
 	bool IsInAir;

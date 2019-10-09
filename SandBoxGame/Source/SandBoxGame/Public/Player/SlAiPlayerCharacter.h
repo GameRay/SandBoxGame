@@ -48,4 +48,8 @@ private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
 		USkeletalMeshComponent*MeshFirst;
 
+	//Ðý×ª±¶ÂÊ
+	float BaseLookUpRate;
+	float BaseTurnRate;
+
 };

@@ -8,6 +8,7 @@
 #include"Classes/Components/CapsuleComponent.h"
 #include"Classes/Components/InputComponent.h"
 #include"Classes/GameFramework/Controller.h"
+#include "Classes/GameFramework/CharacterMovementComponent.h"
 // Sets default values
 ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 {
@@ -82,6 +83,11 @@ ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 	MeshFirst->SetVisibility(false);
 	FirstCamera->SetActive(false);
 	ThirdCamera->SetActive(true);
+
+
+	BaseTurnRate = 45.f;
+	BaseLookUpRate = 45.f;
+	GetCharacterMovement()->MaxWalkSpeed = 150.f;
 }
 
 // Called when the game starts or when spawned
@@ -104,7 +110,14 @@ void ASlAiPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward",this,&ASlAiPlayerCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight",this,&ASlAiPlayerCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("Turn", this, &ASlAiPlayerCharacter::Turn);
+	PlayerInputComponent->BindAxis("LookUp", this, &ASlAiPlayerCharacter::LookUpAtRate);
+	PlayerInputComponent->BindAxis("TurnRate", this, &ASlAiPlayerCharacter::TurnAtRate);
 
+	PlayerInputComponent->BindAction("Jump",IE_Pressed, this, &ASlAiPlayerCharacter::OnStartJump);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ASlAiPlayerCharacter::OnStopJump);
+	PlayerInputComponent->BindAction("Run", IE_Pressed, this, &ASlAiPlayerCharacter::OnStartRun);
+	PlayerInputComponent->BindAction("Run", IE_Released, this, &ASlAiPlayerCharacter::OnStopRun);
 
 
 }
@@ -133,29 +146,37 @@ void ASlAiPlayerCharacter::MoveRight(float Value)
 
 void ASlAiPlayerCharacter::LookUpAtRate(float Value)
 {
+	AddControllerPitchInput(Value*BaseLookUpRate*GetWorld()->GetDeltaSeconds());
 }
 
 void ASlAiPlayerCharacter::Turn(float Value)
 {
+	AddControllerYawInput(Value);
 }
 
 void ASlAiPlayerCharacter::TurnAtRate(float Value)
 {
+	AddControllerYawInput(Value*BaseTurnRate*GetWorld()->GetDeltaSeconds());
 }
 
 void ASlAiPlayerCharacter::OnStartJump()
 {
+	bPressedJump = true;
 }
 
 void ASlAiPlayerCharacter::OnStopJump()
 {
+	bPressedJump = false;
+	StopJumping();
 }
 
 void ASlAiPlayerCharacter::OnStartRun()
 {
+	GetCharacterMovement()->MaxWalkSpeed = 375.f;
 }
 
 void ASlAiPlayerCharacter::OnStopRun()
 {
+	GetCharacterMovement()->MaxWalkSpeed = 15.f;
 }
 
