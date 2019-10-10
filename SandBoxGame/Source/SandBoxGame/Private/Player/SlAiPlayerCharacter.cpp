@@ -177,6 +177,6 @@ void ASlAiPlayerCharacter::OnStartRun()
 
 void ASlAiPlayerCharacter::OnStopRun()
 {
-	GetCharacterMovement()->MaxWalkSpeed = 15.f;
+	GetCharacterMovement()->MaxWalkSpeed = 150.f;
 }
 
