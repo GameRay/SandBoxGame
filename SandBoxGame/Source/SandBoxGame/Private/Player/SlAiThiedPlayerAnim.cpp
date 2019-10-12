@@ -14,7 +14,7 @@ USlAiThiedPlayerAnim::USlAiThiedPlayerAnim()
 void USlAiThiedPlayerAnim::UpdateParameter()
 {
 	Super::UpdateParameter();
-	if (SPCharacter) return;
+	if (!SPCharacter) return;
 
 	IsInAir = SPCharacter->GetCharacterMovement()->IsFalling();
 
