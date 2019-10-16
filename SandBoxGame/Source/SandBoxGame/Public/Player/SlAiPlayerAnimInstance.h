@@ -22,6 +22,7 @@ protected:
 	void InitSPCharacter();
 
 	 virtual void UpdateParameter();
+	 virtual void UpdateMontage();
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
@@ -30,5 +31,11 @@ public:
 	FRotator SpinRotator;
 protected:
 	ASlAiPlayerCharacter*SPCharacter;
+	//…œ∞Î…Ì√…Ã´∆Ê
+	UAnimMontage*PlayerHitMontage;
+	UAnimMontage*PlayerEatMontage;
+	UAnimMontage*PlayerFightMontage;
+	UAnimMontage*PlayerPunchMontage;
+	UAnimMontage*PlayerPickUpMontage;
 	
 };

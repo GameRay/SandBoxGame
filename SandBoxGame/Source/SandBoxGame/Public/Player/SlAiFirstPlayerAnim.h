@@ -13,5 +13,7 @@ UCLASS()
 class SANDBOXGAME_API USlAiFirstPlayerAnim : public USlAiPlayerAnimInstance
 {
 	GENERATED_BODY()
+public:
+	USlAiFirstPlayerAnim();
 	
 };

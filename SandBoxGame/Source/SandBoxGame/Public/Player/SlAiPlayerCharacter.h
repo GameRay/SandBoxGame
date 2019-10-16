@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "SlAiTypes.h"
 #include "SlAiPlayerCharacter.generated.h"
 
 UCLASS()
@@ -27,6 +28,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void ChangeView(EGameViewMode::Type NewGameView);
 private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
@@ -44,6 +46,8 @@ public:
 	UCameraComponent*ThirdCamera;
 	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
 	UCameraComponent*FirstCamera;
+	//当前视角模式
+	EGameViewMode::Type GameView;
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
 		USkeletalMeshComponent*MeshFirst;

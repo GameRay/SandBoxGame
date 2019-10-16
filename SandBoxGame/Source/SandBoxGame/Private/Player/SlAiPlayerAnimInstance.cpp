@@ -8,6 +8,7 @@ void USlAiPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	InitSPCharacter();
 	UpdateParameter();
+	UpdateMontage();
 
 }
 
@@ -29,4 +30,16 @@ void USlAiPlayerAnimInstance::UpdateParameter()
 {
 	if (!SPCharacter)return;
 	Speed = SPCharacter->GetVelocity().Size();
+}
+
+void USlAiPlayerAnimInstance::UpdateMontage()
+{
+	if (!SPCharacter)
+	{
+		return;
+	}
+	if (!Montage_IsPlaying(PlayerPunchMontage))
+	{
+		Montage_Play(PlayerPunchMontage);
+	}
 }

@@ -24,5 +24,14 @@ protected:
 	virtual void SetupInputComponent()override;
 public:
 	ASlAiPlayerCharacter*SPCharacter;
+
+private:
+	void ChangeView();
+	void LeftEventStart();
+	void LeftEventStop();
+	void RightEventStart();
+	void RightEventStop();
+
+
 	
 };
