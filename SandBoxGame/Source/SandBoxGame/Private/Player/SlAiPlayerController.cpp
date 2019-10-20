@@ -19,6 +19,9 @@ void ASlAiPlayerController::Tick(float DeltaSeconds)
 	InputMode.SetConsumeCaptureMouseDown(true);
 	SetInputMode(InputMode);
 	
+	//设置与动作
+	LeftUpperType = EUpperBody::Punch;
+	RightUpperType = EUpperBody::PickUp;
 }
 
 void ASlAiPlayerController::BeginPlay()

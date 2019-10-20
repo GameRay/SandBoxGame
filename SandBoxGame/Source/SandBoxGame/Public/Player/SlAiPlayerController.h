@@ -31,7 +31,10 @@ private:
 	void LeftEventStop();
 	void RightEventStart();
 	void RightEventStop();
+	//左键动作类型
+	EUpperBody::Type LeftUpperType;
 
-
+	//右键动作类型
+	EUpperBody::Type RightUpperType;
 	
 };

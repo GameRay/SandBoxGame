@@ -88,7 +88,11 @@ ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 	GetCharacterMovement()->MaxWalkSpeed = 150.f;
+	//初始化为第三人称
 	GameView = EGameViewMode::Third;
+	//上半身动作初始化为无动作
+	UpperType = EUpperBody::None;
+
 }
 
 // Called when the game starts or when spawned

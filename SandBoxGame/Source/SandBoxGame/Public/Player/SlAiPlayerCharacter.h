@@ -48,6 +48,8 @@ public:
 	UCameraComponent*FirstCamera;
 	//当前视角模式
 	EGameViewMode::Type GameView;
+	//上半身动画状态
+	EUpperBody::Type UpperType;
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
 		USkeletalMeshComponent*MeshFirst;

@@ -37,5 +37,7 @@ protected:
 	UAnimMontage*PlayerFightMontage;
 	UAnimMontage*PlayerPunchMontage;
 	UAnimMontage*PlayerPickUpMontage;
+	//±£´æµ±Ç°ÃÉÌ«Ææ
+	UAnimMontage*CurrentMontage;
 	
 };
