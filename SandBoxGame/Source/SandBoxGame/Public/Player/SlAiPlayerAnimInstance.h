@@ -24,6 +24,8 @@ protected:
 	 virtual void UpdateParameter();
 	 virtual void UpdateMontage();
 
+	 void AllowViewChange(bool allow);
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "PlayAnim")
 	float Speed;
@@ -39,5 +41,7 @@ protected:
 	UAnimMontage*PlayerPickUpMontage;
 	//保存当前蒙太奇
 	UAnimMontage*CurrentMontage;
+	//指定自己的运行人称
+	EGameViewMode::Type GameView;
 	
 };

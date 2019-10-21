@@ -50,6 +50,7 @@ public:
 	EGameViewMode::Type GameView;
 	//…œ∞Î…Ì∂Øª≠◊¥Ã¨
 	EUpperBody::Type UpperType;
+	bool IsAllowSwitch;
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "SlAi")
 		USkeletalMeshComponent*MeshFirst;

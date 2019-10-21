@@ -21,7 +21,7 @@ USlAiThiedPlayerAnim::USlAiThiedPlayerAnim()
 	PlayerPunchMontage = PlayerPunchMon.Object;
 	static ConstructorHelpers::FObjectFinder<UAnimMontage>PlayerPickUpMon(TEXT("AnimMontage'/Game/Res/PolygonAdventure/Mannequin/Player/Animation/UpperBody/PlayerPunchMontage.PlayerPunchMontage'"));
 	PlayerPickUpMontage = PlayerPickUpMon.Object;
-
+	GameView = EGameViewMode::Third;
 }
 
 void USlAiThiedPlayerAnim::UpdateParameter()

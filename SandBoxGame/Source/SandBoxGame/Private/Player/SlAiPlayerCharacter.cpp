@@ -92,7 +92,7 @@ ASlAiPlayerCharacter::ASlAiPlayerCharacter()
 	GameView = EGameViewMode::Third;
 	//上半身动作初始化为无动作
 	UpperType = EUpperBody::None;
-
+	IsAllowSwitch = true;
 }
 
 // Called when the game starts or when spawned

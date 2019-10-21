@@ -30,18 +30,18 @@ void USlAiPlayerAnimInstance::UpdateParameter()
 {
 	if (!SPCharacter)return;
 	Speed = SPCharacter->GetVelocity().Size();
+
+	float SpineDir = SPCharacter->GetActorRotation().Yaw - 90;
+	if (SpineDir > 180.f)SpineDir -= 360;
+	if (SpineDir <-180.f)SpineDir += 360;
+	SpinRotator = FRotator(0.f,SpineDir,90.f);
+
 }
 
 void USlAiPlayerAnimInstance::UpdateMontage()
 {
-	if (!SPCharacter)
-	{
-		return;
-	}
-	/*if (!Montage_IsPlaying(PlayerPunchMontage))
-	{
-		Montage_Play(PlayerPunchMontage);
-	}*/
+	if (!SPCharacter)return;
+	if (GameView != SPCharacter->GameView)return;
 	//如果当前动作没有停止，不更新动作
 	if (!Montage_GetIsStopped(CurrentMontage))return;
 	switch (SPCharacter->UpperType)
@@ -51,6 +51,7 @@ void USlAiPlayerAnimInstance::UpdateMontage()
 		{
 			Montage_Stop(0);
 			CurrentMontage = nullptr;
+			AllowViewChange(true);
 		}
 		break;
 	case EUpperBody::Punch:
@@ -58,6 +59,7 @@ void USlAiPlayerAnimInstance::UpdateMontage()
 		{
 			Montage_Play(PlayerPunchMontage);
 			CurrentMontage = PlayerPunchMontage;
+			AllowViewChange(false);
 		}
 		break;
 	case EUpperBody::Hit:
@@ -65,6 +67,7 @@ void USlAiPlayerAnimInstance::UpdateMontage()
 		{
 			Montage_Play(PlayerHitMontage);
 			CurrentMontage = PlayerHitMontage;
+			AllowViewChange(false);
 		}
 		break;
 	case EUpperBody::Fight:
@@ -72,6 +75,7 @@ void USlAiPlayerAnimInstance::UpdateMontage()
 		{
 			Montage_Play(PlayerFightMontage);
 			CurrentMontage = PlayerFightMontage;
+			AllowViewChange(false);
 		}
 		break;
 	case EUpperBody::PickUp:
@@ -79,6 +83,7 @@ void USlAiPlayerAnimInstance::UpdateMontage()
 		{
 			Montage_Play(PlayerPickUpMontage);
 			CurrentMontage = PlayerPickUpMontage;
+			AllowViewChange(false);
 		}
 		break;
 	case EUpperBody::Eat:
@@ -86,7 +91,16 @@ void USlAiPlayerAnimInstance::UpdateMontage()
 		{
 			Montage_Play(PlayerEatMontage);
 			CurrentMontage = PlayerEatMontage;
+			AllowViewChange(false);
 		}
 		break;
+	}
+}
+
+void USlAiPlayerAnimInstance::AllowViewChange(bool allow)
+{
+	if (!SPCharacter)
+	{
+		SPCharacter->IsAllowSwitch = allow;
 	}
 }

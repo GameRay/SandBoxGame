@@ -41,6 +41,7 @@ void ASlAiPlayerController::SetupInputComponent()
 
 void ASlAiPlayerController::ChangeView()
 {
+	if (!SPCharacter->IsAllowSwitch)return;
 	switch (SPCharacter->GameView)
 	{
 	case EGameViewMode::First:
@@ -54,16 +55,20 @@ void ASlAiPlayerController::ChangeView()
 
 void ASlAiPlayerController::LeftEventStart()
 {
+	SPCharacter->UpperType = LeftUpperType;
 }
 
 void ASlAiPlayerController::LeftEventStop()
 {
+	SPCharacter->UpperType = EUpperBody::None;
 }
 
 void ASlAiPlayerController::RightEventStart()
 {
+	SPCharacter->UpperType = RightUpperType;
 }
 
 void ASlAiPlayerController::RightEventStop()
 {
+	SPCharacter->UpperType = EUpperBody::None;
 }
