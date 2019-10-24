@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
+#include "UI/Widget/SSlAiShotrCutWidget.h"
+#include "Slate/Public/Widgets/Layout/SDPIScaler.h"
+#include "SlateCore/Public/Widgets/SOverlay.h"
 
 /**
  * 
@@ -17,4 +20,11 @@ public:
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
+	float GetUIScaler()const;
+public:
+	TSharedPtr<SSlAiShotrCutWidget> ShortcutWidget;
+private:
+	FVector2D GetViewPortSize()const;
+private:
+	TAttribute<float>UIScaler;
 };
