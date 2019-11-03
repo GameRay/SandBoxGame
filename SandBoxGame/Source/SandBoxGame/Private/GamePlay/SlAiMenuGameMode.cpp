@@ -4,12 +4,13 @@
 #include"SlAiMenuGameMode.h"
 #include"SlAiMenuController.h"
 #include"UI/HUD/SlAiMenuHUD.h"
+#include"UI/HUD/SlAiGameHUD.h"
 #include "SlAIGameInstance.h"
 #include "Kismet/GameplayStatics.h"
 ASlAiMenuGameMode::ASlAiMenuGameMode()
 {
 	PlayerControllerClass = ASlAiMenuController::StaticClass();
-	HUDClass = ASlAiMenuHUD::StaticClass();
+	HUDClass = ASlAiGameHUD::StaticClass();
 }
 
 void ASlAiMenuGameMode::BeginPlay()
