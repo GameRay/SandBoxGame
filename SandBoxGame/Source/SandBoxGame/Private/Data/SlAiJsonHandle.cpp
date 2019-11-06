@@ -11,6 +11,7 @@
 SlAiJsonHandle::SlAiJsonHandle()
 {
 	RecordDataFileName = FString("RecordData.json");
+	ObjectAttrFileName = FString("ObjectAttribute.json");
 	RelativePathJL = FString("Res/ConfigData/");
 }
 
@@ -93,6 +94,10 @@ void SlAiJsonHandle::UpdateRecordData(FString Culture, float MusiVolume, float S
 	JsonStr.RemoveFromEnd(FString("}"));
 	SlAiHelper::DEBUG(FString("Final Str:" + JsonStr));
 	WriteFileWithJsonData(JsonStr, RelativePathJL,RecordDataFileName);
+}
+
+void SlAiJsonHandle::ObjectAttrJsonRead(TMap<int, TSharedPtr<ObjectAttribute>>& ObjectAttrMap)
+{
 }
 
 bool SlAiJsonHandle::LoadStringFromFile(const FString & FileName, const FString & RelaPath, FString & ResultString)
