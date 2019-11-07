@@ -24,6 +24,7 @@ private:
 bool LoadStringFromFile(const FString&FileName,const FString &RelaPath,FString&ResultString);
 bool WriteFileWithJsonData(const FString&JsonStr,const FString&RelaPath,const FString&FileName);
 bool GetFStringInJsonData(const TSharedPtr<FJsonObject>&JsonObj,FString&JsonStr);
+EObjectType::Type StringToObjectType(const FString ArgStr);
 private:
 	FString RecordDataFileName;
 	FString RelativePathJL;

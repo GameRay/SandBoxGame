@@ -98,6 +98,33 @@ void SlAiJsonHandle::UpdateRecordData(FString Culture, float MusiVolume, float S
 
 void SlAiJsonHandle::ObjectAttrJsonRead(TMap<int, TSharedPtr<ObjectAttribute>>& ObjectAttrMap)
 {
+	FString JSonValue;
+	LoadStringFromFile(ObjectAttrFileName, RelativePathJL, JSonValue);
+	TArray<TSharedPtr<FJsonValue>>JsonParsed;
+	TSharedRef<TJsonReader<TCHAR>>JsonReader = TJsonReaderFactory<TCHAR>::Create(JSonValue);
+	if (FJsonSerializer::Deserialize(JsonReader,JsonParsed))
+	{
+
+		for (int i=0;i<JsonParsed.Num();++i)
+		{
+			TArray<TSharedPtr<FJsonValue>>ObjectAttr = JsonParsed[0]->AsObject()->GetArrayField(FString::FromInt(i));
+			FText EN = FText::FromString(ObjectAttr[0]->AsObject()->GetStringField("EN"));
+			FText ZH = FText::FromString(ObjectAttr[1]->AsObject()->GetStringField("ZH"));
+			FString ObjectTypeStr= ObjectAttr[2]->AsObject()->GetStringField("ObjectType");
+			int PlantAttack= ObjectAttr[3]->AsObject()->GetIntegerField("PlantAttack");
+			int MetalAttack = ObjectAttr[4]->AsObject()->GetIntegerField("MetalAttack");
+			int AnimalAttack = ObjectAttr[5]->AsObject()->GetIntegerField("AnimalAttack");
+			int AffectRange = ObjectAttr[6]->AsObject()->GetIntegerField("AffectRange");
+			FString TexPath = ObjectAttr[7]->AsObject()->GetStringField("TexPath");
+
+			EObjectType::Type ObjectType = StringToObjectType(ObjectTypeStr);
+			TSharedPtr<ObjectAttribute>ObjectAttrPtr = MakeShareable(new ObjectAttribute(EN,ZH,ObjectType,PlantAttack,MetalAttack
+			,AnimalAttack,AffectRange,TexPath));
+			ObjectAttrMap.Add(i, ObjectAttrPtr);
+
+		}
+	}
+
 }
 
 bool SlAiJsonHandle::LoadStringFromFile(const FString & FileName, const FString & RelaPath, FString & ResultString)
@@ -154,4 +181,13 @@ bool SlAiJsonHandle::GetFStringInJsonData(const TSharedPtr<FJsonObject>&JsonObj,
 		return true;
 	}
 	return false;
+}
+
+EObjectType::Type SlAiJsonHandle::StringToObjectType(const FString ArgStr)
+{
+	if (ArgStr.Equals(FString("Normal"))) return EObjectType::Normal;
+	if (ArgStr.Equals(FString("Food"))) return EObjectType::Food;
+	if (ArgStr.Equals(FString("Tool"))) return EObjectType::Tool;
+	if (ArgStr.Equals(FString("Weapon"))) return EObjectType::Weapon;
+	return EObjectType::Normal;
 }
