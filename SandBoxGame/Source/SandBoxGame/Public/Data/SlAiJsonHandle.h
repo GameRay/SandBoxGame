@@ -19,6 +19,7 @@ void UpdateRecordData(FString Culture,float MusiVolume,float SoundVolume,TArray<
 
 //解析Object
 void ObjectAttrJsonRead(TMap<int, TSharedPtr<ObjectAttribute>>&ObjectAttrMap);
+//游戏数据初始化
 
 private:
 bool LoadStringFromFile(const FString&FileName,const FString &RelaPath,FString&ResultString);

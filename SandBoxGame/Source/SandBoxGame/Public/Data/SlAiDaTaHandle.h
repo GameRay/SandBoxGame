@@ -19,6 +19,7 @@ public:
 	static TSharedPtr<SlAiDaTaHandle> Get();
 
 	void ChangeLocalizationCulture(ECultureTeam Culture);
+	void InitializeGameData();
 public:
 	ECultureTeam CurrentCulture;
 	void ResetMenuVolume(float Music, float Sound);
@@ -26,6 +27,8 @@ public:
 	float GetSoundVolume();
 	TArray<FString>RecordDataList;
 	FString RecordName;
+	//物品属性图
+	TMap<int, TSharedPtr<ObjectAttribute>> ObjectAttrMap;
 
 private:
 	void InitRecordData();
@@ -35,6 +38,8 @@ private:
 	template<typename TEnum>
 	TEnum GetEnumValueFromString(const FString&Name, FString Value);
 	void InitializedMenuAudio();
+	//初始化物品属性
+	void InitObjectAttr();
 
 
 private:

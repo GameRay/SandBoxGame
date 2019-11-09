@@ -22,6 +22,7 @@ ASlAiGameMode::ASlAiGameMode()
 
 void ASlAiGameMode::BeginPlay()
 {
+	SlAiDaTaHandle::Get()->InitializeGameData();
 }
 
 void ASlAiGameMode::Tick(float DeltaSeconds)

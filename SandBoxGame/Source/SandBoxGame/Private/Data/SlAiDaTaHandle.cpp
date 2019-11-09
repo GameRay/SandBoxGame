@@ -50,6 +50,8 @@ void SlAiDaTaHandle::ChangeLocalizationCulture(ECultureTeam Culture)
 		, MusicVolume, SoundVolume, &RecordDataList);
 }
 
+
+
 void SlAiDaTaHandle::ResetMenuVolume(float Music, float Sound)
 
 {
@@ -150,4 +152,16 @@ void SlAiDaTaHandle::InitializedMenuAudio()
 	ResetMenuVolume(MusicVolume,SoundVolume);
 
 
+}
+void SlAiDaTaHandle::InitializeGameData()
+{
+	InitObjectAttr();
+}
+void SlAiDaTaHandle::InitObjectAttr()
+{
+	SlAiSingleton<SlAiJsonHandle>::Get()->ObjectAttrJsonRead(ObjectAttrMap);
+	for (TMap<int ,TSharedPtr<ObjectAttribute>>::TIterator It(ObjectAttrMap);It;++It)
+	{
+		SlAiHelper::DEBUG((It->Value)->ToString(),120.f);
+	}
 }

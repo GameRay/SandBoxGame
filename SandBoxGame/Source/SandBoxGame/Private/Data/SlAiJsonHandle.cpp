@@ -107,12 +107,13 @@ void SlAiJsonHandle::ObjectAttrJsonRead(TMap<int, TSharedPtr<ObjectAttribute>>& 
 
 		for (int i=0;i<JsonParsed.Num();++i)
 		{
-			TArray<TSharedPtr<FJsonValue>>ObjectAttr = JsonParsed[0]->AsObject()->GetArrayField(FString::FromInt(i));
+			//TSharedPtr<FJsonObject> a = JsonParsed[0]->AsObject();
+			TArray<TSharedPtr<FJsonValue>>ObjectAttr = JsonParsed[i]->AsObject()->GetArrayField(FString::FromInt(i));
 			FText EN = FText::FromString(ObjectAttr[0]->AsObject()->GetStringField("EN"));
 			FText ZH = FText::FromString(ObjectAttr[1]->AsObject()->GetStringField("ZH"));
 			FString ObjectTypeStr= ObjectAttr[2]->AsObject()->GetStringField("ObjectType");
 			int PlantAttack= ObjectAttr[3]->AsObject()->GetIntegerField("PlantAttack");
-			int MetalAttack = ObjectAttr[4]->AsObject()->GetIntegerField("MetalAttack");
+			int MetalAttack = ObjectAttr[4]->AsObject()->GetIntegerField("MetalAttcck");
 			int AnimalAttack = ObjectAttr[5]->AsObject()->GetIntegerField("AnimalAttack");
 			int AffectRange = ObjectAttr[6]->AsObject()->GetIntegerField("AffectRange");
 			FString TexPath = ObjectAttr[7]->AsObject()->GetStringField("TexPath");
@@ -124,6 +125,10 @@ void SlAiJsonHandle::ObjectAttrJsonRead(TMap<int, TSharedPtr<ObjectAttribute>>& 
 
 		}
 	}
+	else
+	{
+		SlAiHelper::DEBUG(FString("Deserialize Failed"));
+	}	
 
 }
 
@@ -132,7 +137,7 @@ bool SlAiJsonHandle::LoadStringFromFile(const FString & FileName, const FString 
 	if (!FileName.IsEmpty())
 	{
 		//FString AbsoPath = FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir() + RelativePathJL + RecordDataFileName) ;
-		FString AbsoPath = FPaths::ProjectContentDir() + RelativePathJL + RecordDataFileName;
+		FString AbsoPath = FPaths::ProjectContentDir() + RelaPath + FileName;
 		//TCHAR*a = TEXT("/");
 		//TCHAR*b = TEXT("\\");
 		//AbsoPath = AbsoPath.Replace(a,b);

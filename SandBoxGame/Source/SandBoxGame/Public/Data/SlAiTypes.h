@@ -113,4 +113,17 @@ struct ObjectAttribute
 		AffectRange = AR;
 		TexPath = TP;
 	}
+
+	FString ToString() {
+		return EN.ToString() + FString("--") + ZH.ToString() + FString("--") + FString::FromInt((int)ObjectType) + FString("--") + FString::FromInt(PlantAttack) + FString("--") + FString::FromInt(MetalAttack) + FString("--") + FString::FromInt(AnimalAttack) + FString("--") + FString::FromInt(AffectRange) + FString("--") + TexPath;
+	}
+};
+struct ShortcutContainer
+{
+	//ŒÔ∆∑ID
+	int ObjectIndex;
+	int ObjectNum;
+	TSharedPtr<SBorder>ContainerBorder;
+	TSharedPtr<SBorder>Pbject
+
 };
