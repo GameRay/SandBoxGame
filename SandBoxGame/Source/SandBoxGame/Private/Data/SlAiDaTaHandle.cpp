@@ -7,6 +7,8 @@
 #include"SlAiJsonHandle.h"
 #include "SlAiHelper.h"
 #include "SlAiSingleton.h"
+#include"SlAiGameWidgetStyle.h"
+#include"SlAiMenuWidgetStyle.h"
 TSharedPtr<SlAiDaTaHandle> SlAiDaTaHandle::DataInstance = NULL;
 SlAiDaTaHandle::SlAiDaTaHandle()
 {
@@ -160,8 +162,27 @@ void SlAiDaTaHandle::InitializeGameData()
 void SlAiDaTaHandle::InitObjectAttr()
 {
 	SlAiSingleton<SlAiJsonHandle>::Get()->ObjectAttrJsonRead(ObjectAttrMap);
-	for (TMap<int ,TSharedPtr<ObjectAttribute>>::TIterator It(ObjectAttrMap);It;++It)
+	/*for (TMap<int ,TSharedPtr<ObjectAttribute>>::TIterator It(ObjectAttrMap);It;++It)
 	{
 		SlAiHelper::DEBUG((It->Value)->ToString(),120.f);
-	}
+	}*/
+	GameStyle = &SlAiStyle::Get().GetWidgetStyle<FSlAiGameStyle>("BPSlaiGameStyle");
+	ObjectBrushList.Add(&GameStyle->EmptyBrush);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_1);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_2);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_3);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_4);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_5);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_6);
+	ObjectBrushList.Add(&GameStyle->ObjectBrush_7);
+
+	/*for (int i = 0; i < ObjectAttrMap.Num(); i++)
+	{
+		FSlateBrush*ObjectBrush = new FSlateBrush();
+		ObjectBrush->ImageSize = FVector2D(80.f,80.f);
+		ObjectBrush->DrawAs = ESlateBrushDrawType::Image;
+		UTexture2D*ObjectTex = LoadObject<UTexture2D>(NULL,*(*ObjectAttrMap.Find(i))->TexPath);
+		ObjectBrush->SetResourceObject(ObjectTex);
+		ObjectBrushList.Add(ObjectBrush);
+	}*/
 }

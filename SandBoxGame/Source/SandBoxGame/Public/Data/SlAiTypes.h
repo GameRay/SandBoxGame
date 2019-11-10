@@ -124,6 +124,64 @@ struct ShortcutContainer
 	int ObjectIndex;
 	int ObjectNum;
 	TSharedPtr<SBorder>ContainerBorder;
-	TSharedPtr<SBorder>Pbject
+	TSharedPtr<SBorder>ObjectImage;
+	TSharedPtr<STextBlock>ObjectNumText;
+	const FSlateBrush* NormalContainerBrush;
+	const FSlateBrush* ChoosedContainerBrush;
+	TArray<const FSlateBrush*>*ObjectBrushList;
 
+
+	ShortcutContainer(TSharedPtr<SBorder> CB, TSharedPtr<SBorder> OI, TSharedPtr<STextBlock> ONT, const FSlateBrush* NCB, const FSlateBrush* CCB, TArray<const FSlateBrush*>* OBL) {
+		ContainerBorder = CB;
+		ObjectImage = OI;
+		ObjectNumText = ONT;
+		NormalContainerBrush = NCB;
+		ChoosedContainerBrush = CCB;
+		ObjectBrushList = OBL;
+
+		//初始化显示设置
+		ObjectNum = 0;
+		ObjectIndex = 0;
+		ContainerBorder->SetBorderImage(NormalContainerBrush);
+		ObjectImage->SetBorderImage((*ObjectBrushList)[0]);
+	}
+
+	//设置当前物品被选中图标，并且返回物品水印
+	int SetChoosed(bool Option)
+	{
+		if (Option)
+		{
+			ContainerBorder->SetBorderImage(ChoosedContainerBrush);
+		}
+		else
+		{
+			ContainerBorder->SetBorderImage(NormalContainerBrush);
+		}
+		return ObjectIndex;
+	}
+
+	//设置Index以及更新笔刷
+	ShortcutContainer* SetObject(int NewIndex)
+	{
+		ObjectIndex = NewIndex;
+		ObjectImage->SetBorderImage((*ObjectBrushList)[ObjectIndex]);
+
+		return this;
+	}
+
+	//设置数量
+	ShortcutContainer*SetObjectNum(int Num=0)
+	{
+		ObjectNum = Num;
+
+		if (ObjectNum==0||ObjectNum==1)
+		{
+			ObjectNumText->SetText(FString(""));
+		}
+		else
+		{
+			ObjectNumText->SetText(FString::FromInt(ObjectNum));
+		}
+		return this;
+	}
 };

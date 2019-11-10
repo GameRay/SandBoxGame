@@ -8,6 +8,8 @@
 #include"SBox.h"
 #include"SOverlay.h"
 #include"SBorder.h"
+#include"Data/SlAiTypes.h"
+#include"SlAiDaTaHandle.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SSlAiShotrCutWidget::Construct(const FArguments& InArgs)
@@ -51,6 +53,7 @@ void SSlAiShotrCutWidget::Tick(const FGeometry & AllottedGeometry, const double 
 }
 void SSlAiShotrCutWidget::InitializeContainer()
 {
+	TArray<TSharedPtr<ShortcutContainer>>ContainerList;
 	for (int i = 0; i < 9; i++)
 	{
 		TSharedPtr<SBorder> ContainerBorder;
@@ -77,6 +80,16 @@ void SSlAiShotrCutWidget::InitializeContainer()
 				ContainerBorder->AsShared()
 			];
 			
+		TSharedPtr<ShortcutContainer>Container = MakeShareable(new ShortcutContainer(ContainerBorder, ObjectImage, ObjectNumText, &GameStyle->NormalContainerBrush, &GameStyle->ChoosedContainerBrush,
+			&SlAiDaTaHandle::Get()->ObjectBrushList));
+		if (i==0)
+		{
+			Container->SetChoosed(true);
+		}
+		
+		ContainerList.Add(Container);
+	
+	
 	}
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

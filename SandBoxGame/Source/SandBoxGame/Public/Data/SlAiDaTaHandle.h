@@ -41,14 +41,15 @@ private:
 	//初始化物品属性
 	void InitObjectAttr();
 
-
+public:
+	TArray<const FSlateBrush*>ObjectBrushList;
 private:
 	static TSharedPtr<SlAiDaTaHandle> DataInstance;
 	float MusicVolume;
 	float SoundVolume;
 	TMap<FString, TArray<USoundCue*>> MenuAudioResource;
 	const struct FSlAiMenuStyle*MenuStyle;
-
+	const struct FSlAiGameStyle*GameStyle;
 
 };
 
