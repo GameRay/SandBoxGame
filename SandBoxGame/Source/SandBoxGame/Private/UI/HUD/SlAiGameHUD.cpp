@@ -13,4 +13,7 @@ ASlAiGameHUD::ASlAiGameHUD()
 	
 
 }
-
+void ASlAiGameHUD::BeginPlay()
+{
+	Super::BeginPlay();
+}

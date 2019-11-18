@@ -5,10 +5,13 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 #include"STextBlock.h"
+#include "SlAiTypes.h"
 #include"SUniformGridPanel.h"
 /**
  * 
  */
+//注册快捷栏到PlayerState类委托
+DECLARE_DELEGATE_TwoParams(FRegisterShortCutContainer,TArray<TSharedPtr<ShortcutContainer>>*,TSharedPtr<STextBlock>)
 class SANDBOXGAME_API SSlAiShotrCutWidget : public SCompoundWidget
 {
 public:

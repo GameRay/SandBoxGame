@@ -15,6 +15,8 @@ class SANDBOXGAME_API ASlAiGameHUD : public AHUD
 {
 	GENERATED_BODY()
 	ASlAiGameHUD();
+protected:
+	virtual void BeginPlay() override;
 private:
 	TSharedPtr<SSlAiGameHUDWidget> SlAiGameWidget;
 	//TSharedRef<SSlAiGameHUDWidget>SlAiGameWidget;
