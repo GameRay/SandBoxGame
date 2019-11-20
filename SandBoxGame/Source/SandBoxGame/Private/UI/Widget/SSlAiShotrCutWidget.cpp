@@ -91,5 +91,6 @@ void SSlAiShotrCutWidget::InitializeContainer()
 	
 	
 	}
+	RegisterShortCutContainer.ExecuteIfBound(&ContainerList, ShortcutInfoTextBlock);
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
