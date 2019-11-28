@@ -28,3 +28,7 @@ void ASlAiGameMode::BeginPlay()
 void ASlAiGameMode::Tick(float DeltaSeconds)
 {
 }
+
+void ASlAiGameMode::InitGamePlayModule()
+{
+}

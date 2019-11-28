@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Public/Player/SlAiPlayerCharacter.h"
+#include "Public/Player/SlAiPlayerController.h"
+#include "Public/Player/SlAiPlayerState.h"
 #include "SlAiGameMode.generated.h"
 
 /**
@@ -17,4 +20,10 @@ public:
 		ASlAiGameMode();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds)override;
+	void InitGamePlayModule();
+public:
+	ASlAiPlayerController*SPController;
+	ASlAiPlayerCharacter*SPCharacter;
+	ASlAiPlayerState*SPState;
+
 };

@@ -19,5 +19,5 @@ void ASlAiPlayerState::RegisterShortCutContainer(TArray<TSharedPtr<ShortcutConta
 
 FText ASlAiPlayerState::GetShortcutInfoText() const
 {
-	return FText();
+	return FText::FromString("hahaahha");
 }
