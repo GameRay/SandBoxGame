@@ -15,6 +15,8 @@ void ASlAiPlayerState::RegisterShortCutContainer(TArray<TSharedPtr<ShortcutConta
 	}
 	ShortcutInfoTextAttr.BindUObject(this,&ASlAiPlayerState::GetShortcutInfoText);
 	ShortcutInfoTextBlock->SetText(ShortcutInfoTextAttr);
+	
+	ShortcutContainerList[1]->SetObject(1)->SetObjectNum(5);
 }
 
 FText ASlAiPlayerState::GetShortcutInfoText() const

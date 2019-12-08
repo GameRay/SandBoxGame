@@ -23,6 +23,10 @@ ASlAiGameMode::ASlAiGameMode()
 void ASlAiGameMode::BeginPlay()
 {
 	SlAiDaTaHandle::Get()->InitializeGameData();
+	if (!SPController)
+	{
+		InitGamePlayModule();
+	}
 }
 
 void ASlAiGameMode::Tick(float DeltaSeconds)
@@ -31,4 +35,8 @@ void ASlAiGameMode::Tick(float DeltaSeconds)
 
 void ASlAiGameMode::InitGamePlayModule()
 {
+	//
+	SPController = Cast<ASlAiPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	SPCharacter = Cast<ASlAiPlayerCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(),0));
+	SPState = Cast<ASlAiPlayerState>(SPController->PlayerState);
 }

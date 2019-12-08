@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
 #include "Widget/SSlAiGameHUDWidget.h"
+#include "SlAiGameMode.h"
 #include "SlAiGameHUD.generated.h"
 
 /**
@@ -15,9 +16,11 @@ class SANDBOXGAME_API ASlAiGameHUD : public AHUD
 {
 	GENERATED_BODY()
 	ASlAiGameHUD();
+public:
+	ASlAiGameMode*GM;
 protected:
 	virtual void BeginPlay() override;
 private:
-	TSharedPtr<SSlAiGameHUDWidget> SlAiGameWidget;
+	TSharedPtr<SSlAiGameHUDWidget> GameHUDWidget;
 	//TSharedRef<SSlAiGameHUDWidget>SlAiGameWidget;
 };
